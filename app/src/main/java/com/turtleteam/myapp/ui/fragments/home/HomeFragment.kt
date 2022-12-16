@@ -6,12 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.adapters.HomeAdapter
 import com.turtleteam.myapp.databinding.FragmentHomeBinding
 import com.turtleteam.myapp.databinding.FragmentRegisterBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -23,7 +27,7 @@ class HomeFragment : Fragment() {
         participate = { participate() },
         participateEvent = { participateEvent() },
         edit = { editEvent() },
-        delete = { deleteEvent() }
+        delete = { deleteEvent(it) }
     )
 
     override fun onCreateView(
@@ -64,7 +68,11 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun deleteEvent() {
-
+    private fun deleteEvent(id: Int) {
+        lifecycleScope.launch {
+            viewModel.deleteEvent(id)
+            delay(100)
+            viewModel.getAllEvents()
+        }
     }
 }

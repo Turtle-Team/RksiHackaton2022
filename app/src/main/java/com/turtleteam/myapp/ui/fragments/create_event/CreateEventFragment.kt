@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.google.gson.Gson
 import com.turtleteam.myapp.R
+import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -32,7 +33,7 @@ class CreateEventFragment : Fragment() {
         binding.createEventButton.setOnClickListener {
             viewModel.createEvent(
                 Gson().toJson(
-                    Events(
+                    EventRequestBody(
                         header = binding.titleEditText.text.toString(),
                         text = binding.descriptionEditText.text.toString(),
                         url = binding.urlEditText.text.toString(),

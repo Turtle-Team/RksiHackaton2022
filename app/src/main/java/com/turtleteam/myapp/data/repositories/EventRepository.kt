@@ -13,4 +13,6 @@ class EventRepository @Inject constructor(private val apiService: EventService) 
     suspend fun getEvent(id: Int) = println()
 
     suspend fun createEvent(eventModel: String) = apiService.createEvent(eventModel = eventModel)
+
+    suspend fun deleteEvent(id: Int) = apiService.deleteEvent(id = id)
 }

@@ -22,4 +22,9 @@ class HomeViewModel @Inject constructor(private val repository: EventRepository)
         Log.e("EVENTS", repository.getAllEvent().toString())
         _events.postValue(repository.getAllEvent())
     }
+
+    fun deleteEvent(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteEvent(id)
+        Log.e("DELETE", "OKEY")
+    }
 }

@@ -45,7 +45,7 @@ class HomeAdapter(
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item?.itemId) {
                     R.id.participate -> {
-                        Log.e("menu", "PARTICIPATE")
+                        Log.e("menu", "PARTICIPATE id: ${item1.id}")
                     }
                     R.id.participateEvent -> {
                         Log.e("menu", "PARTICIPATE EVENT")
@@ -55,6 +55,7 @@ class HomeAdapter(
                     }
                     R.id.deleteEvent -> {
                         Log.e("menu", "DELETE EVENT")
+                        delete(item1.id)
                     }
                 }
                 true
