@@ -16,8 +16,8 @@ import javax.inject.Inject
 @HiltViewModel
 class RegisterViewModel @Inject constructor(private val repository: AuthRepository) : ViewModel() {
 
-    private val _userId = MutableLiveData<com.turtleteam.myapp.data.wrapper.Result<UserId>>()
-    var userId: LiveData<com.turtleteam.myapp.data.wrapper.Result<UserId>> = _userId
+    private val _userId = MutableLiveData<Result<UserId>>()
+    var userId: LiveData<Result<UserId>> = _userId
 
     fun register(userModel: AuthRequestBody) = viewModelScope.launch(Dispatchers.IO) {
         _userId.postValue(repository.register(userModel))

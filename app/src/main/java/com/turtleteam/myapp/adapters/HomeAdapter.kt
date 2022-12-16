@@ -13,8 +13,8 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeHolder>() {
     class HomeHolder(private val binding: EventTimeBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Events) {
-            binding.title.text = item.title
-            binding.description.text = item.description
+            binding.title.text = item.header
+            binding.description.text = item.text
             binding.date.text = item.date
         }
     }

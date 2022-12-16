@@ -19,4 +19,9 @@
     <string name="title">Заголовок</string>
     <string name="description">Описание</string>
     <string name="date">Дата проведения</string>
+    <string name="add">Создать</string>
+    <string name="create_event">Создать мероприятие</string>
+    <string name="telegram">Telegram</string>
+    <string name="create">Создать</string>
+    <string name="url">URL</string>
 </resources>
