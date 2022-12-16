@@ -28,40 +28,11 @@ object ViewAnimations {
         if (blackout) {
             val anim1 = ObjectAnimator.ofFloat(view, "alpha", 1F)
             anim1.duration = 200
-            anim1.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator) {
-                    super.onAnimationStart(animation)
-                    view.apply {
-                        isClickable = true
-                        isFocusable = true
-                        isEnabled = true
-                    }
-                }
-
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    view.alpha = 1F
-                }
-            })
             anim1.start()
 
         } else {
             val anim2 = ObjectAnimator.ofFloat(view, "alpha", 0.5F)
             anim2.duration = 150
-            anim2.addListener(object : AnimatorListenerAdapter() {
-                override fun onAnimationStart(animation: Animator) {
-                    super.onAnimationStart(animation)
-                    view.apply {
-                        isClickable = false
-                        isFocusable = false
-                        isEnabled = false
-                    }
-                }
-                override fun onAnimationEnd(animation: Animator) {
-                    super.onAnimationEnd(animation)
-                    view.alpha = 0.5F
-                }
-            })
             anim2.start()
         }
     }

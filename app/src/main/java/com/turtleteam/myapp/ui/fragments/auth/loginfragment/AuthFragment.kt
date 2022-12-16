@@ -5,18 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.turtleteam.myapp.R
+import com.turtleteam.myapp.data.model.users.UserId
+import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentAuthBinding
 import com.turtleteam.myapp.ui.fragments.auth.base.BaseAuthFragment
 import com.turtleteam.myapp.utils.ViewAnimations
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_auth.*
 
-
+@AndroidEntryPoint
 class AuthFragment : BaseAuthFragment<FragmentAuthBinding>() {
 
+    private val viewModel by viewModels<AuthViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.authButton.setOnClickListener {
@@ -25,24 +28,46 @@ class AuthFragment : BaseAuthFragment<FragmentAuthBinding>() {
                 authButton.isClickable = false
                 registerButton.isClickable = false
                 passwordEditText.isFocusable = false
-                fioEditText.isFocusable = false
+                emailEditText.isFocusable = false
                 loadingview.visibility = View.VISIBLE
             }
-            handleResult()
+
+            viewModel.login(emailEditText.text.toString(), passwordEditText.text.toString())
         }
 
         binding.registerButton.setOnClickListener {
             findNavController().navigate(R.id.action_authFragment_to_registerFragment)
         }
+
+        viewModel.userId.observe(viewLifecycleOwner) {
+            handleResult(it)
+            ViewAnimations.blackout(true, binding.cardAuth)
+            binding.apply {
+                authButton.isClickable = true
+                registerButton.isClickable = true
+                passwordEditText.isFocusableInTouchMode = true
+                emailEditText.isFocusableInTouchMode = true
+                loadingview.visibility = View.GONE
+            }
+        }
     }
 
-    private fun handleResult() {
-        lifecycleScope.launch {
-            delay(3000)
-            ViewAnimations.blackout(true, binding.cardAuth)
-            Toast.makeText(context, "Вход выполнен", Toast.LENGTH_SHORT).show()
-            delay(200)
-            findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+    private fun handleResult(result: com.turtleteam.myapp.data.wrapper.Result<UserId>) {
+        when (result) {
+            is Result.Success -> {
+//                context?.let { UserPreferences(it).getUserId(result.value.id) }
+                Toast.makeText(context, result.value.token, Toast.LENGTH_LONG).show()
+                findNavController().navigate(R.id.action_authFragment_to_homeFragment)
+            }
+            is Result.Loading -> {
+                binding.loadingview.visibility = View.VISIBLE
+            }
+            is Result.ConnectionError,
+            is Result.Error,
+            is Result.NotFoundError,
+            -> {
+                Toast.makeText(context, result.toString(), Toast.LENGTH_LONG).show()
+            }
         }
     }
 

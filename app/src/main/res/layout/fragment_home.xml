@@ -5,13 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragments.home.HomeFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Мероприятия" />
-
+        android:layout_height="match_parent"/>
 
     <include
         android:id="@+id/stateView"
-        layout="@layout/view_request_state"/>
+        layout="@layout/view_request_state" />
 </FrameLayout>

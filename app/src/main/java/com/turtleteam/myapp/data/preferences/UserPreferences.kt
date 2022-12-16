@@ -13,7 +13,7 @@ class UserPreferences(context: Context) {
     private var preferences: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun getUserId(id: Int) = preferences.edit().putInt(USER_ID, id).apply()
+    fun getUserId(token: String) = preferences.edit().putString(USER_ID, token).apply()
 
-    fun setUserId(): Int = preferences.getInt(USER_ID, 0)
+    fun setUserId(): String? = preferences.getString(USER_ID, "0")
 }

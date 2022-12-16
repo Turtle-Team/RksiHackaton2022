@@ -1,25 +1,21 @@
+
 package com.turtleteam.myapp.data.api
 
+import com.turtleteam.myapp.data.model.users.AuthRequestBody
 import com.turtleteam.myapp.data.model.users.UserId
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface AuthService {
 
-    @POST
+    @POST("auth")
     suspend fun register(
-        @Query("fio") fio: String,
-        @Query("post") post: String,
-        @Query("organization") organization: String,
-        @Query("status") status: String,
-        @Query("email") email: String,
-        @Query("password") password: String,
-        ): UserId
+        @Header("Content-Type") type: String = "application/json",
+        @Body userModel: AuthRequestBody
+    ): UserId
 
-    @GET
+    @GET("auth")
     suspend fun login(
-        @Query("fio") fio: String,
+        @Query("email") email: String,
         @Query("password") password: String,
     ): UserId
 }
