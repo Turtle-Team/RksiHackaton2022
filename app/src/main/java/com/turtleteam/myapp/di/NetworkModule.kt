@@ -2,6 +2,7 @@ package com.turtleteam.myapp.di
 
 import com.turtleteam.myapp.data.api.ApiService
 import com.turtleteam.myapp.data.api.AuthService
+import com.turtleteam.myapp.data.api.EventService
 import com.turtleteam.myapp.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -35,5 +36,11 @@ object NetworkModule {
     @Singleton
     fun provideApiService(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideEventService(retrofit: Retrofit): EventService {
+        return retrofit.create(EventService::class.java)
     }
 }
