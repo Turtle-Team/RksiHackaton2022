@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">myApp</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="auth">Авторизация</string>
+    <string name="login">Логин</string>
+    <string name="name">ФИО</string>
+    <string name="post">Должность</string>
+    <string name="auth_btn">Далее</string>
+    <string name="register">Регистрация</string>
+    <string name="organization">Организация</string>
+    <string name="status">Статус</string>
+    <string name="email">Почта</string>
+    <string name="password">Пароль</string>
+    <string name="participate">Участвую</string>
+    <string name="events">Мероприятия</string>
+    <string name="repeat_title">Повторить</string>
+    <string name="settings">Настройки</string>
+</resources>
