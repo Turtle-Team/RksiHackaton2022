@@ -52,7 +52,7 @@ class AuthFragment : BaseAuthFragment<FragmentAuthBinding>() {
         }
     }
 
-    private fun handleResult(result: com.turtleteam.myapp.data.wrapper.Result<UserId>) {
+    private fun handleResult(result: Result<UserId>) {
         when (result) {
             is Result.Success -> {
 //                context?.let { UserPreferences(it).getUserId(result.value.id) }
