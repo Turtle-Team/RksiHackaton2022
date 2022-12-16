@@ -12,7 +12,7 @@
     <string name="status">Статус</string>
     <string name="email">Почта</string>
     <string name="password">Пароль</string>
-    <string name="participate">Участвую</string>
+    <string name="participate">Участвовать</string>
     <string name="events">Мероприятия</string>
     <string name="repeat_title">Повторить</string>
     <string name="settings">Настройки</string>
@@ -24,4 +24,7 @@
     <string name="telegram">Telegram</string>
     <string name="create">Создать</string>
     <string name="url">URL</string>
+    <string name="participateEvent">Участники</string>
+    <string name="delete">Удалить</string>
+    <string name="edit">Редактировать</string>
 </resources>

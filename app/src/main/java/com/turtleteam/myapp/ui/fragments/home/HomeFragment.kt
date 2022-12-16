@@ -19,7 +19,12 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
 
     private val viewModel: HomeViewModel by viewModels()
-    private val adapter = HomeAdapter()
+    private val adapter = HomeAdapter(
+        participate = { participate() },
+        participateEvent = { participateEvent() },
+        edit = { editEvent() },
+        delete = { deleteEvent() }
+    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,5 +50,21 @@ class HomeFragment : Fragment() {
         viewModel.events.observe(viewLifecycleOwner) { list ->
             adapter.setData(list)
         }
+    }
+
+    private fun participate() {
+
+    }
+
+    private fun participateEvent() {
+
+    }
+
+    private fun editEvent() {
+
+    }
+
+    private fun deleteEvent() {
+
     }
 }
