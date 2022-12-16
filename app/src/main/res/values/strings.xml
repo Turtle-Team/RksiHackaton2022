@@ -16,4 +16,7 @@
     <string name="events">Мероприятия</string>
     <string name="repeat_title">Повторить</string>
     <string name="settings">Настройки</string>
+    <string name="title">Заголовок</string>
+    <string name="description">Описание</string>
+    <string name="date">Дата проведения</string>
 </resources>
