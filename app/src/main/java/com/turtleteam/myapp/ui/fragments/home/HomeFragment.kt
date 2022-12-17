@@ -62,6 +62,7 @@ class HomeFragment : Fragment() {
             -> {
                 binding.progressbar.visibility = View.GONE
                 binding.stateView.layoutviewstate.visibility = View.VISIBLE
+                handleViewStates(Result.Success(emptyList()))
                 binding.stateView.refreshButton.setOnClickListener {
                     binding.progressbar.visibility = View.VISIBLE
                     binding.stateView.layoutviewstate.visibility = View.GONE
@@ -81,7 +82,7 @@ class HomeFragment : Fragment() {
                 adapter.submitList(result.value)
                 binding.progressbar.visibility = View.GONE
                 lifecycleScope.launch {
-                    delay(4000)
+                    delay(10000)
                     viewModel.getAllEvents()
                 }
                 Log.e("aaaa", "Повторный запрос")
