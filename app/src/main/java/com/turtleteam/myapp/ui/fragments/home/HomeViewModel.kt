@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.repositories.EventRepository
 import com.turtleteam.myapp.data.wrapper.Result
@@ -32,4 +33,6 @@ class HomeViewModel @Inject constructor(private val repository: EventRepository)
     fun deleteEvent(id: Int) = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteEvent(id)
     }
+
+
 }

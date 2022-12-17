@@ -92,6 +92,7 @@ class HomeFragment : Fragment() {
 
     private fun editEvent(item: Events) {
         Toast.makeText(requireContext(), item.id.toString(), Toast.LENGTH_LONG).show()
+        findNavController().navigate(R.id.action_homeFragment_to_editEventFragment)
     }
 
     private fun deleteEvent(id: Int) {

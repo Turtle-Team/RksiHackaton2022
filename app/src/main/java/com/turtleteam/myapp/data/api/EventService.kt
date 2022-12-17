@@ -24,4 +24,12 @@ interface EventService {
         @Path("id") id: Int
     )
 
+    @PUT("event/{id}")
+    suspend fun editEvent(
+        @Header("Content-Type") type: String = "application/json",
+        @Path("id") id: Int,
+        @Body eventModel: EventRequestBody,
+        @Query("token") token: String
+    )
+
 }

@@ -34,6 +34,9 @@
         <action
             android:id="@+id/action_homeFragment_to_createEventFragment"
             app:destination="@id/createEventFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
     </fragment>
 
     <fragment
@@ -53,6 +56,15 @@
         tools:layout="@layout/fragment_create_event" >
         <action
             android:id="@+id/action_createEventFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="com.turtleteam.myapp.ui.fragments.edit_event.EditEventFragment"
+        android:label="Редактирование мероприятия"
+        tools:layout="@layout/fragment_edit_event" >
+        <action
+            android:id="@+id/action_editEventFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
 </navigation>
