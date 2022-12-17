@@ -37,13 +37,12 @@ class EditEventFragment : Fragment() {
         return binding.root
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val id = arguments?.getInt("key")
         val header = arguments?.getString("header")
         val text = arguments?.getString("text")
         val url = arguments?.getString("url")
-        val date = arguments?.getString("date_start")
+        val date = arguments?.getString("date")
 
         binding.titleEditText.setText(header)
         binding.descriptionEditText.setText(text)
@@ -91,7 +90,6 @@ class EditEventFragment : Fragment() {
             is Result.ConnectionError,
             is Result.Error,
             -> {
-                Log.e("editerror", result.toString())
                 Toast.makeText(requireContext(), "Не удалось сохранить", Toast.LENGTH_LONG).show()
             }
             is Result.NotFoundError,
@@ -113,6 +111,7 @@ class EditEventFragment : Fragment() {
         }.time
         val formattedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(date)
         binding.dateEditText.text = formattedDate
+        Log.e("aaaa", formattedDate.toString())
         return formattedDate
     }
 }

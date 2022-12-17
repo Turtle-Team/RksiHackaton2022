@@ -39,12 +39,10 @@ class CreateEventFragment : Fragment() {
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.timepicker.setIs24HourView(true);
+        binding.timepicker.setIs24HourView(true)
         binding.timepicker.hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         binding.createEventButton.setOnClickListener {
-
-            val iso8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.createEvent(

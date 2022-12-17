@@ -85,7 +85,6 @@ class HomeFragment : Fragment() {
             is Result.Success -> {
                 adapter.submitList(result.value)
                 binding.progressbar.visibility = View.GONE
-                binding.stateView.layoutviewstate.visibility = View.GONE
                 lifecycleScope.launch {
                     delay(10000)
                     viewModel.getAllEvents()
@@ -110,9 +109,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun urlEvent(url: String) {
-        val list = url.split(" ")
-        EventDialog.urls = list
+//        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+
         val fm = parentFragmentManager
+        val dialogFragment = EventDialog()
+//        val urls = bundleOf("urls" to url)
+        dialogFragment.arguments?.putString("urls", url)
         EventDialog().show(fm, "Ссылки")
     }
 
