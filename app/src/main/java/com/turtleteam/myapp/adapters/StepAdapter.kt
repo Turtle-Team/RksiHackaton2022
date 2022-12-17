@@ -14,6 +14,7 @@ import com.turtleteam.myapp.databinding.StepItemBinding
 class StepAdapter(
     private val edit: (item: Step) -> Unit,
     private val delete: (item: Step) -> Unit,
+    private val url: (item: String) -> Unit,
 ) : RecyclerView.Adapter<StepAdapter.StepHolder>() {
 
     private val steps = mutableListOf<Step>()
@@ -22,6 +23,7 @@ class StepAdapter(
         private val binding: StepItemBinding,
         private val edit: (item: Step) -> Unit,
         private val delete: (item: Step) -> Unit,
+        private val url: (item: String) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Step) {
@@ -40,6 +42,9 @@ class StepAdapter(
             popup.inflate(R.menu.step_menu)
             popup.setOnMenuItemClickListener { item: MenuItem? ->
                 when (item?.itemId) {
+                    R.id.urlStep -> {
+                        url(item1.url)
+                    }
                     R.id.editStep -> {
                         Log.e("menu", item1.id.toString())
                         edit(item1)
@@ -58,7 +63,7 @@ class StepAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StepHolder {
         val inflater =
             StepItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return StepHolder(inflater, edit, delete)
+        return StepHolder(inflater, edit, delete, url)
     }
 
     override fun onBindViewHolder(holder: StepHolder, position: Int) {
