@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:hint="@string/title"
                 android:textColorHint="@color/white"
                 app:hintTextColor="@color/white">
@@ -56,6 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="20dp"
                 android:hint="@string/description"
                 android:textColorHint="@color/white"
                 app:hintTextColor="@color/white">
@@ -75,7 +77,6 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
-
 
 
             <TextView

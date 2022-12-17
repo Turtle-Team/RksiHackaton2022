@@ -4,21 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center"
     tools:context=".ui.fragments.setting.SettingFragment">
 
+
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardAuth"
-        style="@style/cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:backgroundTint="@color/dark_purple"
         app:cardCornerRadius="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/qanelas"
+                android:gravity="center_horizontal"
+                android:layout_gravity="center"
+                android:text="@string/settings"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
 
             <Button
                 android:id="@+id/themeButton"
@@ -44,8 +55,8 @@
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/qanelas"
                 android:text="@string/signOut" />
-        </LinearLayout>
 
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
 
 </ScrollView>
