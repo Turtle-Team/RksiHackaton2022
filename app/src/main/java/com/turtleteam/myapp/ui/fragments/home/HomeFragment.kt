@@ -109,13 +109,15 @@ class HomeFragment : Fragment() {
     }
 
     private fun urlEvent(url: String) {
-//        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
-
+<<<<<<<<< Temporary merge branch 1
+        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+        EventDialog().show(requireFragmentManager(), "URL")
+=========
+        val list = url.split(" ")
+        EventDialog.urls = list
         val fm = parentFragmentManager
-        val dialogFragment = EventDialog()
-//        val urls = bundleOf("urls" to url)
-        dialogFragment.arguments?.putString("urls", url)
         EventDialog().show(fm, "Ссылки")
+>>>>>>>>> Temporary merge branch 2
     }
 
     private fun participate() {

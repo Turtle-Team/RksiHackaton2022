@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.turtleteam.myapp.R
@@ -43,7 +44,7 @@ class EditEventFragment : Fragment() {
         val header = arguments?.getString("header")
         val text = arguments?.getString("text")
         val url = arguments?.getString("url")
-        val date = arguments?.getString("date")
+        val date = arguments?.getString("date_start")
 
         binding.titleEditText.setText(header)
         binding.descriptionEditText.setText(text)
@@ -91,6 +92,7 @@ class EditEventFragment : Fragment() {
             is Result.ConnectionError,
             is Result.Error,
             -> {
+                Log.e("editerror", result.toString())
                 Toast.makeText(requireContext(), "Не удалось сохранить", Toast.LENGTH_LONG).show()
             }
             is Result.NotFoundError,
