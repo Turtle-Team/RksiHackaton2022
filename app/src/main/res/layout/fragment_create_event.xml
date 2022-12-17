@@ -2,41 +2,40 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/gray"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     tools:context=".ui.fragments.create_event.CreateEventFragment">
 
-        <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/dark_purple"
+        app:cardCornerRadius="10dp">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/dark_purple"
-            android:layout_marginTop="40dp"
-            android:layout_margin="20dp"
-            app:cardCornerRadius="10dp">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="10dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/qanelas"
+                android:gravity="center"
+                android:text="@string/create_event"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:fontFamily="@font/qanelas"
-                    android:text="@string/create_event"
-                    android:textColor="@color/white"
-                    android:textSize="30sp" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:hint="@string/title"
-                    android:textColorHint="@color/white"
-                    app:hintTextColor="@color/white">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/title"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white">
 
                 <EditText
                     android:id="@+id/titleEditText"
@@ -51,38 +50,40 @@
                     android:paddingEnd="20dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:hint="@string/description"
-                    android:textColorHint="@color/white"
-                    app:hintTextColor="@color/white">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/description"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white">
+
                 <EditText
                     android:id="@+id/descriptionEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:minHeight="150dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_corners_night"
                     android:ems="10"
                     android:fontFamily="@font/qanelas"
                     android:inputType="text|textMultiLine"
+                    android:minHeight="150dp"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:hint="@string/url"
-                    android:textColorHint="@color/white"
-                    app:hintTextColor="@color/white">
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/url"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white">
+
                 <EditText
                     android:id="@+id/urlEditText"
                     android:layout_width="match_parent"
@@ -96,42 +97,54 @@
                     android:paddingEnd="20dp"
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:hint="@string/date"
-                    android:textColorHint="@color/white"
-                    app:hintTextColor="@color/white">
-                <EditText
-                    android:id="@+id/dateEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/edit_text_corners_night"
-                    android:ems="10"
-                    android:fontFamily="@font/qanelas"
-                    android:inputType="date"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:textColor="@color/white"
-                    android:textColorHint="@color/white" />
-                </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/dateEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_corners_night"
+                android:fontFamily="@font/qanelas"
+                android:gravity="center"
+                android:text="@string/date"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="25sp" />
 
-                <Button
-                    android:id="@+id/createEventButton"
-                    android:layout_width="250dp"
-                    android:layout_height="60dp"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:background="@drawable/edit_text_corners_night"
-                    android:backgroundTint="@color/gray"
-                    android:fontFamily="@font/qanelas"
-                    android:text="@string/create"
-                    android:textColor="@color/white" />
+            <DatePicker
+                android:id="@+id/datepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:calendarTextColor="@color/white"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:layout_gravity="center"
+                android:scaleX="0.90"
+                android:scaleY="1.10" />
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <TimePicker
+                android:id="@+id/timepicker"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:scaleX="0.90"
+                android:scaleY="1.10"
+                android:timePickerMode="spinner" />
+
+            <Button
+                android:id="@+id/createEventButton"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/edit_text_corners_night"
+                android:backgroundTint="@color/gray"
+                android:fontFamily="@font/qanelas"
+                android:text="@string/create"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </ScrollView>

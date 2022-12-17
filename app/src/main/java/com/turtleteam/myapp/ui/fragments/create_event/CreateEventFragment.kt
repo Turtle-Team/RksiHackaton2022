@@ -19,6 +19,7 @@ import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class CreateEventFragment : Fragment() {
@@ -38,23 +39,30 @@ class CreateEventFragment : Fragment() {
     @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.createEventButton.setOnClickListener {
+        binding.timepicker.setIs24HourView(true);
+        binding.timepicker.hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
+        binding.createEventButton.setOnClickListener {
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.createEvent(
                     EventRequestBody(
                         header = binding.titleEditText.text.toString(),
                         text = binding.descriptionEditText.text.toString(),
                         url = binding.urlEditText.text.toString(),
-                        date = "2022-12-16T22:23:21.451Z"
+                        date = getFormattedTime()
                     ),
                     savedToken
                 )
             }
             it.isClickable = false
-
         }
 
+        binding.datepicker.setOnDateChangedListener { _, _, _, _ ->
+            getFormattedTime()
+        }
+        binding.timepicker.setOnTimeChangedListener { _, _, _ ->
+            getFormattedTime()
+        }
         viewModel.result.observe(viewLifecycleOwner) {
             handleResult(it)
             binding.createEventButton.isClickable = true
@@ -81,5 +89,19 @@ class CreateEventFragment : Fragment() {
                 Toast.makeText(requireContext(), result.toString(), Toast.LENGTH_LONG).show()
             }
         }
+    }
+    @SuppressLint("SimpleDateFormat")
+    private fun getFormattedTime(): String {
+        val date = Calendar.getInstance().apply {
+            set(Calendar.YEAR, binding.datepicker.year)
+            set(Calendar.MONTH, binding.datepicker.month)
+            set(Calendar.DAY_OF_MONTH, binding.datepicker.dayOfMonth)
+            set(Calendar.HOUR_OF_DAY, binding.timepicker.hour)
+            set(Calendar.MINUTE, binding.timepicker.minute)
+        }.time
+        val formattedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(date)
+        binding.dateEditText.text = formattedDate
+        Log.e("aaaa", formattedDate.toString())
+        return formattedDate
     }
 }

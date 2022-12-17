@@ -82,20 +82,51 @@
                     android:textColor="@color/white"
                     android:textColorHint="@color/white" />
 
-                <EditText
+                <TextView
                     android:id="@+id/dateEditText"
-                    android:layout_width="250dp"
+                    android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/edit_text_corners_night"
-                    android:ems="10"
                     android:fontFamily="@font/qanelas"
-                    android:hint="@string/date"
-                    android:inputType="date"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
+                    android:gravity="center"
+                    android:text="@string/date"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white" />
+                    android:textColorHint="@color/white"
+                    android:textSize="25sp" />
+
+                <DatePicker
+                    android:id="@+id/datepicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:calendarTextColor="@color/white"
+                    android:calendarViewShown="false"
+                    android:datePickerMode="spinner"
+                    android:layout_gravity="center"
+                    android:scaleX="0.90"
+                    android:scaleY="1.10" />
+
+                <TimePicker
+                    android:id="@+id/timepicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    android:layout_gravity="center"
+                    android:scaleX="0.90"
+                    android:scaleY="1.10"
+                    android:timePickerMode="spinner" />
+
+                <Button
+                    android:id="@+id/createEventButton"
+                    android:layout_width="250dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="40dp"
+                    android:background="@drawable/edit_text_corners_night"
+                    android:backgroundTint="@color/gray"
+                    android:fontFamily="@font/qanelas"
+                    android:text="@string/create"
+                    android:textColor="@color/white" />
 
                 <Button
                     android:id="@+id/saveEventButton"
