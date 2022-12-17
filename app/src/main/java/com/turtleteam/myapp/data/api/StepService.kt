@@ -19,4 +19,12 @@ interface StepService {
         @Body eventModel: EventRequestBody,
         @Query("token") token: String
     )
+
+    @DELETE("event/{id}/steps/{step_id}")
+    suspend fun deleteStep(
+        @Header("Content-Type") type: String = "application/json",
+        @Path("id") id: Int,
+        @Path("step_id") stepId: Int,
+        @Query("token") token: String
+    )
 }

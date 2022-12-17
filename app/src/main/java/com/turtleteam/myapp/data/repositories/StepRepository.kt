@@ -8,4 +8,6 @@ class StepRepository @Inject constructor(private val apiService: StepService) {
 
     suspend fun getStepsByEvent(id: Int, token: String): List<Step> =
         apiService.getAllStepsByEvent(id = id, token = token)
+
+    suspend fun deleteStep(id: Int, stepId: Int, token: String) = apiService.deleteStep(id = id, stepId = stepId, token = token)
 }
