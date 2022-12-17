@@ -48,7 +48,13 @@
         android:id="@+id/settingFragment"
         android:name="com.turtleteam.myapp.ui.fragments.setting.SettingFragment"
         android:label="Настройки"
-        tools:layout="@layout/fragment_setting" />
+        tools:layout="@layout/fragment_setting" >
+        <action
+            android:id="@+id/action_settingFragment_to_authFragment"
+            app:destination="@id/authFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/settingFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/createEventFragment"
         android:name="com.turtleteam.myapp.ui.fragments.create_event.CreateEventFragment"
