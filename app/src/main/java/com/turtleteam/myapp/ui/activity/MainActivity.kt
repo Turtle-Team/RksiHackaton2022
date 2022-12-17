@@ -1,8 +1,8 @@
 package com.turtleteam.myapp.ui.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.settingFragment,
                 R.id.createEventFragment,
                 R.id.stepFragment,
-                R.id.createStepFragment
+                R.id.createStepFragment,
+                R.id.profileFragment
             )
         )
 

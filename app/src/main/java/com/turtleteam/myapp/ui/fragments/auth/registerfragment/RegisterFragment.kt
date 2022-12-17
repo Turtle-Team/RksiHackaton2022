@@ -1,6 +1,7 @@
 package com.turtleteam.myapp.ui.fragments.auth.registerfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -38,10 +39,11 @@ class RegisterFragment : BaseAuthFragment<FragmentRegisterBinding>() {
                 registerButton.isFocusable = false
                 loadingview.visibility = View.VISIBLE
             }
+            Log.e("REGISTER", binding.organizationEditText.toString(),)
             viewModel.register(AuthRequestBody(
                 binding.fioEditText.text.toString(),
                 binding.postEditText.text.toString(),
-                binding.organizationEditText.toString(),
+                binding.organizationEditText.text.toString(),
                 binding.statusPopupButton.text.toString(),
                 binding.emailEditText.text.toString(),
                 binding.passwordEditText.text.toString()

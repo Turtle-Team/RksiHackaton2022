@@ -1,6 +1,7 @@
 package com.turtleteam.myapp.data.repositories
 
 import com.turtleteam.myapp.data.api.AuthService
+import com.turtleteam.myapp.data.model.profile.Profile
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
 import com.turtleteam.myapp.data.model.users.UserId
 import com.turtleteam.myapp.data.preferences.UserPreferences
@@ -25,4 +26,6 @@ class AuthRepository @Inject constructor(
     ): Result<UserId> = NetworkResultWrapper.wrapWithResult {
         apiService.login(email, password)
     }
+
+    suspend fun getUser(token: String): Profile = apiService.getUser(token)
 }

@@ -1,6 +1,7 @@
 
 package com.turtleteam.myapp.data.api
 
+import com.turtleteam.myapp.data.model.profile.Profile
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
 import com.turtleteam.myapp.data.model.users.UserId
 import retrofit2.http.*
@@ -18,4 +19,9 @@ interface AuthService {
         @Query("email") email: String,
         @Query("password") password: String,
     ): UserId
+
+    @GET("auth/{token}")
+    suspend fun getUser(
+        @Path("token") token: String
+    ): Profile
 }

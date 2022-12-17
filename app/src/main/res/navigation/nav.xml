@@ -98,4 +98,9 @@
         android:name="com.turtleteam.myapp.ui.fragments.edit_step.EditStepFragment"
         android:label="Редактирование этапа"
         tools:layout="@layout/fragment_edit_step" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.turtleteam.myapp.ui.fragments.profile.ProfileFragment"
+        android:label="Профиль"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
