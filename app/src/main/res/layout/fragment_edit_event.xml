@@ -97,7 +97,8 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:textColor="@color/white"
-                    android:textColorHint="@color/white" />
+                    android:textColorHint="@color/white"
+                    tools:ignore="TextFields" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView

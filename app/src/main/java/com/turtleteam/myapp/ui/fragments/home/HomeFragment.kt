@@ -109,7 +109,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun urlEvent(url: String) {
-        EventDialog.urls = url
+        val list = url.split(" ")
+        EventDialog.urls = list
         val fm = parentFragmentManager
         EventDialog().show(fm, "Ссылки")
     }
