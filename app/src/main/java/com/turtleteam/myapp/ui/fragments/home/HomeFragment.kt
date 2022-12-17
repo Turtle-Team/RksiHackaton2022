@@ -18,6 +18,7 @@ import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentHomeBinding
+import com.turtleteam.myapp.dialogs.EventDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -89,6 +90,7 @@ class HomeFragment : Fragment() {
                 }
                 Log.e("aaaa", "Повторный запрос")
             }
+            else -> {}
         }
     }
 
@@ -106,7 +108,13 @@ class HomeFragment : Fragment() {
     }
 
     private fun urlEvent(url: String) {
-        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+//        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+
+        val fm = requireFragmentManager()
+        val dialogFragment = EventDialog()
+        val urls = bundleOf("urls" to url)
+        dialogFragment.arguments = urls
+        EventDialog().show(fm, "Ссылки")
     }
 
     private fun participate() {
