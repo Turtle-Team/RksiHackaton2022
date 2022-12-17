@@ -2,19 +2,17 @@ package com.turtleteam.myapp.ui.fragments.step
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.os.bundleOf
-import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.adapters.StepAdapter
-import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.model.step.Step
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.databinding.FragmentStepBinding
@@ -32,9 +30,13 @@ class StepFragment : Fragment() {
         delete = { deleteStep(id = it.event_id, stepId = it.id) }
     )
 
+    companion object {
+        private var mId: Int? = null
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentStepBinding.inflate(layoutInflater, container, false)
         return binding.root
@@ -43,9 +45,11 @@ class StepFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = arguments?.getInt("id")
+        mId = arguments?.getInt("id")
         UserPreferences(requireContext()).setUserId()?.let { savedToken ->
-            viewModel.getStepsByEvent(id!!, savedToken)
+            if (id != null) {
+                viewModel.getStepsByEvent(id, savedToken)
+            }
         }
 
         Log.e("STEP", viewModel.steps.value.toString())
@@ -56,7 +60,7 @@ class StepFragment : Fragment() {
 
         binding.floatingButtonStep.setOnClickListener {
             findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
-                bundleOf("key" to id,))
+                bundleOf("key" to id))
             Toast.makeText(requireContext(), id.toString(), Toast.LENGTH_SHORT).show()
         }
     }

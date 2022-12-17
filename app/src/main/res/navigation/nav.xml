@@ -92,7 +92,13 @@
         android:id="@+id/createStepFragment"
         android:name="com.turtleteam.myapp.ui.fragments.create_step.CreateStepFragment"
         android:label="Создание этапа"
-        tools:layout="@layout/fragment_create_step" />
+        tools:layout="@layout/fragment_create_step" >
+        <action
+            android:id="@+id/action_createStepFragment_to_stepFragment"
+            app:destination="@id/stepFragment"
+            app:popUpTo="@id/stepFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
     <fragment
         android:id="@+id/editStepFragment"
         android:name="com.turtleteam.myapp.ui.fragments.edit_step.EditStepFragment"
