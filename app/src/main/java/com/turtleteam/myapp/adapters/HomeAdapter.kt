@@ -55,7 +55,7 @@ class HomeAdapter(
                         Log.e("menu", "EDIT EVENT")
                     }
                     R.id.deleteEvent -> {
-                        Log.e("menu", "DELETE EVENT")
+                        Log.e("menu", "DELETE EVENT: ${item1.id}")
                         delete(item1.id)
                     }
                 }
