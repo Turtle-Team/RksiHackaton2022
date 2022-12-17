@@ -15,8 +15,11 @@ import javax.inject.Inject
 @HiltViewModel
 class EditEventViewModel @Inject constructor(private val repository: EventRepository) : ViewModel(){
 
+    private val _result = MutableLiveData<Result<Throwable>>()
+    val result: LiveData<Result<Throwable>> = _result
+
     fun editEvent(id: Int, eventModel: EventRequestBody, token: String) =
         viewModelScope.launch(Dispatchers.IO) {
-            repository.editEvent(id = id, eventModel = eventModel, token = token)
+            _result.postValue(repository.editEvent(id = id, eventModel = eventModel, token = token))
         }
 }

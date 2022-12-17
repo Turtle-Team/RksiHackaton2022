@@ -37,6 +37,6 @@ interface EventService {
         @Path("id") id: Int,
         @Body eventModel: EventRequestBody,
         @Query("token") token: String
-    )
+    ): Throwable?
 
 }
