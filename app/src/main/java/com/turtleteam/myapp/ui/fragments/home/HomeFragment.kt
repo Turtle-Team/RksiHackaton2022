@@ -67,7 +67,8 @@ class HomeFragment : Fragment() {
                     binding.progressbar.visibility = View.VISIBLE
                     binding.stateView.layoutviewstate.visibility = View.GONE
                     viewModel.getAllEvents()
-                    UserPreferences(requireContext()).setUserId()?.let { it1 -> viewModel.getUser(it1) }
+                    UserPreferences(requireContext()).setUserId()
+                        ?.let { it1 -> viewModel.getUser(it1) }
                 }
             }
             is Result.NotFoundError,
@@ -118,6 +119,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun deleteEvent(id: Int) {
-        viewModel.deleteEvent(id)
+        lifecycleScope.launch {
+            viewModel.deleteEvent(id)
+            delay(800)
+            viewModel.getAllEvents()
+        }
     }
 }
