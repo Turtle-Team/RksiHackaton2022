@@ -20,4 +20,8 @@ class StepViewModel @Inject constructor(private val repository: StepRepository) 
     fun getStepsByEvent(id: Int, token: String) = viewModelScope.launch(Dispatchers.IO) {
         _steps.postValue(repository.getStepsByEvent(id, token))
     }
+
+    fun deleteStep(id: Int, stepId: Int, token: String) = viewModelScope.launch(Dispatchers.IO) {
+        repository.deleteStep(id, stepId, token)
+    }
 }

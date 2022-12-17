@@ -114,6 +114,8 @@ class HomeFragment : Fragment() {
         EventDialog.urls = list
         val fm = parentFragmentManager
         EventDialog().show(fm, "Ссылки")
+        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+        EventDialog().show(requireFragmentManager(), "URL")
     }
 
     private fun participate() {
