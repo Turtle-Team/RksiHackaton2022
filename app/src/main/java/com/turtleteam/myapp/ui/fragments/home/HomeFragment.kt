@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
         edit = { editEvent(it) },
         delete = { deleteEvent(it) },
         url = { urlEvent(it) },
-        openSteps = {openSteps(it)}
+        openSteps = { openSteps(it) }
     )
 
     override fun onCreateView(
@@ -85,6 +85,7 @@ class HomeFragment : Fragment() {
             is Result.Success -> {
                 adapter.submitList(result.value)
                 binding.progressbar.visibility = View.GONE
+                binding.stateView.layoutviewstate.visibility = View.GONE
                 lifecycleScope.launch {
                     delay(10000)
                     viewModel.getAllEvents()
@@ -109,6 +110,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun urlEvent(url: String) {
+        val list = url.split(" ")
+        EventDialog.urls = list
+        val fm = parentFragmentManager
+        EventDialog().show(fm, "Ссылки")
         Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
         EventDialog().show(requireFragmentManager(), "URL")
     }
@@ -122,28 +127,35 @@ class HomeFragment : Fragment() {
     }
 
     private fun editEvent(item: Events) {
-        Toast.makeText(requireContext(), item.id.toString(), Toast.LENGTH_LONG).show()
-        findNavController().navigate(
-            R.id.action_homeFragment_to_editEventFragment,
-            bundleOf(
-                "key" to item.id,
-                "header" to item.header,
-                "text" to item.text,
-                "url" to item.url,
-                "date_start" to item.date_start
-            )
-        )
-    }
-
-    private fun deleteEvent(id: Int) {
-        lifecycleScope.launch {
-            viewModel.deleteEvent(id)
-            delay(800)
-            viewModel.getAllEvents()
+        if (viewModel.user.value!!.body()!!.status == "Организатор"&& viewModel.user.value!!.body()!=null) {
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_editEventFragment,
+                    bundleOf(
+                        "key" to item.id,
+                        "header" to item.header,
+                        "text" to item.text,
+                        "url" to item.url,
+                        "date_start" to item.date_start
+                    )
+                )
+        } else {
+            Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun openSteps(id: Int){
+    private fun deleteEvent(id: Int) {
+        if (viewModel.user.value!!.body()!!.status == "Организатор"&& viewModel.user.value!!.body()!=null) {
+            lifecycleScope.launch {
+                viewModel.deleteEvent(id)
+                delay(800)
+                viewModel.getAllEvents()
+            }
+        } else {
+            Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun openSteps(id: Int) {
         findNavController().navigate(R.id.action_homeFragment_to_stepFragment, bundleOf("id" to id))
     }
 }

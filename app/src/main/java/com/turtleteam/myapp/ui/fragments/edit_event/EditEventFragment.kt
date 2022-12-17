@@ -4,22 +4,21 @@ import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.preferences.UserPreferences
+import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentEditEventBinding
-import com.turtleteam.myapp.ui.fragments.create_event.CreateEventViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.delay
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -93,6 +92,7 @@ class EditEventFragment : Fragment() {
             is Result.ConnectionError,
             is Result.Error,
             -> {
+                Log.e("editerror", result.toString())
                 Toast.makeText(requireContext(), "Не удалось сохранить", Toast.LENGTH_LONG).show()
             }
             is Result.NotFoundError,
@@ -114,7 +114,6 @@ class EditEventFragment : Fragment() {
         }.time
         val formattedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(date)
         binding.dateEditText.text = formattedDate
-        Log.e("aaaa", formattedDate.toString())
         return formattedDate
     }
 }
