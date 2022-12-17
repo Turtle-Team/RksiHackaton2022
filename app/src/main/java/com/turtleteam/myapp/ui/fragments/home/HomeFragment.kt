@@ -32,7 +32,8 @@ class HomeFragment : Fragment() {
         participate = { participate() },
         participateEvent = { participateEvent() },
         edit = { editEvent(it) },
-        delete = { deleteEvent(it) }
+        delete = { deleteEvent(it) },
+        url = { urlEvent(it) }
     )
 
     override fun onCreateView(
@@ -67,7 +68,8 @@ class HomeFragment : Fragment() {
                     binding.progressbar.visibility = View.VISIBLE
                     binding.stateView.layoutviewstate.visibility = View.GONE
                     viewModel.getAllEvents()
-                    UserPreferences(requireContext()).setUserId()?.let { it1 -> viewModel.getUser(it1) }
+                    UserPreferences(requireContext()).setUserId()
+                        ?.let { it1 -> viewModel.getUser(it1) }
                 }
             }
             is Result.NotFoundError,
@@ -103,6 +105,10 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun urlEvent(url: String) {
+        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+    }
+
     private fun participate() {
 
     }
@@ -113,8 +119,16 @@ class HomeFragment : Fragment() {
 
     private fun editEvent(item: Events) {
         Toast.makeText(requireContext(), item.id.toString(), Toast.LENGTH_LONG).show()
-        findNavController().navigate(R.id.action_homeFragment_to_editEventFragment,
-            bundleOf("key" to item.id))
+        findNavController().navigate(
+            R.id.action_homeFragment_to_editEventFragment,
+            bundleOf(
+                "key" to item.id,
+                "header" to item.header,
+                "text" to item.text,
+                "url" to item.url,
+                "date" to item.date
+            )
+        )
     }
 
     private fun deleteEvent(id: Int) {

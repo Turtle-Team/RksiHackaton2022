@@ -19,6 +19,7 @@ import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class CreateEventFragment : Fragment() {
@@ -39,6 +40,8 @@ class CreateEventFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.createEventButton.setOnClickListener {
+
+            val iso8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'"
 
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.createEvent(

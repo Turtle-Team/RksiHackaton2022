@@ -1,6 +1,7 @@
 package com.turtleteam.myapp.ui.fragments.auth.loginfragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,6 +63,7 @@ class AuthFragment : BaseAuthFragment<FragmentAuthBinding>() {
                 if (result.value.token != null) {
                     context?.let { UserPreferences(it).getUserId(result.value.token) }
                     Toast.makeText(context, result.value.token, Toast.LENGTH_LONG).show()
+                    Log.e("TOKEN", result.value.token)
                     findNavController().navigate(R.id.action_authFragment_to_homeFragment)
                 } else {
                     handleResult(Result.NotFoundError)

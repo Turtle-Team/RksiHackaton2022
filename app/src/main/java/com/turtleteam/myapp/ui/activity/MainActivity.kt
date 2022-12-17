@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
                 R.id.authFragment -> bottomNavigationMenu.visibility = View.INVISIBLE
                 R.id.registerFragment -> bottomNavigationMenu.visibility = View.INVISIBLE
-                R.id.createEventFragment -> bottomNavigationMenu.visibility = View.INVISIBLE
+                R.id.createEventFragment -> bottomNavigationMenu.visibility = View.GONE
                 else -> bottomNavigationMenu.visibility = View.VISIBLE
             }
         }

@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/urlEvent"
+        android:title="@string/urls"/>
+
+    <item
         android:id="@+id/participate"
         android:title="@string/participate"/>
 
