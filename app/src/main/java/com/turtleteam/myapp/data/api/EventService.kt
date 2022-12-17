@@ -1,12 +1,8 @@
 package com.turtleteam.myapp.data.api
 
+import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.model.event.Events
-import retrofit2.http.Body
-import retrofit2.http.DELETE
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface EventService {
 
@@ -18,12 +14,14 @@ interface EventService {
     @POST("event/")
     suspend fun createEvent(
         @Header("Content-Type") type: String = "application/json",
-        @Body eventModel: String
-    )
+        @Body eventModel: EventRequestBody,
+        @Query("token") token: String
+    ): Throwable?
 
     @DELETE("event/{id}")
     suspend fun deleteEvent(
         @Header("Content-Type") type: String = "application/json",
         @Path("id") id: Int
     )
+
 }
