@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_homeFragment_to_editEventFragment"
             app:destination="@id/editEventFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_stepFragment"
+            app:destination="@id/stepFragment" />
     </fragment>
 
     <fragment

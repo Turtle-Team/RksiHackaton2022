@@ -18,7 +18,6 @@ import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.text.SimpleDateFormat
 import java.util.*
 
 @AndroidEntryPoint
@@ -49,7 +48,7 @@ class CreateEventFragment : Fragment() {
                         header = binding.titleEditText.text.toString(),
                         text = binding.descriptionEditText.text.toString(),
                         url = binding.urlEditText.text.toString(),
-                        date = "2022-12-16T22:23:21.451Z"
+                        date_start = "2022-12-16T22:23:21.451Z"
                     ),
                     savedToken
                 )
