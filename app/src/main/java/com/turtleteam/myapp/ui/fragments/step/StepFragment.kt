@@ -16,6 +16,7 @@ import com.turtleteam.myapp.adapters.StepAdapter
 import com.turtleteam.myapp.data.model.step.Step
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.databinding.FragmentStepBinding
+import com.turtleteam.myapp.dialogs.EventDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,7 +28,8 @@ class StepFragment : Fragment() {
     private val viewModel: StepViewModel by viewModels()
     private val adapter = StepAdapter(
         edit = { editStep(it) },
-        delete = { deleteStep(id = it.event_id, stepId = it.id) }
+        delete = { deleteStep(id = it.event_id, stepId = it.id) },
+        url = { urlStep(it) }
     )
 
     companion object {
@@ -82,6 +84,15 @@ class StepFragment : Fragment() {
 //                "date_start" to item.date_start
 //            )
         )
+    }
+
+    private fun urlStep(url: String){
+        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+        EventDialog().show(requireFragmentManager(), "URL")
+        val list = url.split(" ")
+        EventDialog.urls = list
+        val fm = parentFragmentManager
+        EventDialog().show(fm, "Ссылки")
     }
 
     private fun deleteStep(id: Int, stepId: Int) {
