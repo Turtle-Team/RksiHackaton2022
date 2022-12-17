@@ -44,7 +44,7 @@ class CreateEventFragment : Fragment() {
 
         binding.createEventButton.setOnClickListener {
 
-            UserPreferences(requireContext()).setUserId()?.let { savedToken ->
+            UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
                 viewModel.createEvent(
                     EventRequestBody(
                         header = binding.titleEditText.text.toString(),

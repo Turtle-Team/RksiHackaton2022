@@ -53,7 +53,7 @@ class EditEventFragment : Fragment() {
 
         Log.e("ID", id.toString())
         binding.saveEventButton.setOnClickListener {
-            UserPreferences(requireContext()).setUserId()?.let { savedToken ->
+            UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
                 viewModel.editEvent(
                     id = id!!,
                     EventRequestBody(

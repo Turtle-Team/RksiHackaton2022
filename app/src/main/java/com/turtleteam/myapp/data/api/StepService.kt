@@ -20,7 +20,7 @@ interface StepService {
         @Path("id") id: Int,
         @Body stepModel: StepRequestBody,
         @Query("token") token: String
-    )
+    ): Throwable?
 
     @DELETE("event/{id}/steps/{step_id}")
     suspend fun deleteStep(

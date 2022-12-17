@@ -7,12 +7,19 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.turtleteam.myapp.R
+import com.turtleteam.myapp.data.model.step.StepRequestBody
 import com.turtleteam.myapp.data.preferences.UserPreferences
+import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentCreateStepBinding
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.fragment_create_step.*
+import kotlinx.android.synthetic.main.fragment_create_step.view.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,13 +66,51 @@ class CreateStepFragment : Fragment() {
         }
 
         binding.createStepButton.setOnClickListener {
-            UserPreferences(requireContext()).setUserId()?.let { savedToken ->
-//                viewModel.createEvent(
-//                    id = id, stepModel = StepRequestBody(
-//                        event_id = id,
-//                        date =
-//                    )
-//                )
+            UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
+                if (id!=null) {
+                    viewModel.createStep(
+                        id, StepRequestBody(
+                            id,
+                            binding.dateStartEditText.text.toString(),
+                            binding.dateEndEditText.text.toString(),
+                            binding.titleEditText.text.toString(),
+                            binding.descriptionEditText.text.toString(),
+                            binding.stepurl.text.toString()
+                        ),
+                        savedToken
+                    )
+                    it.isClickable = false
+                }else{
+                    Toast.makeText(requireContext(), "Отсутствует id мероприятия", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.result.observe(viewLifecycleOwner){
+            handleResult(it)
+            binding.createStepButton.isClickable = true
+        }
+
+    }
+
+    private fun handleResult(result: Result<Throwable>) {
+        when (result) {
+            is Result.Success -> {
+                if (result.value != null) {
+                    Log.e("dddddddd", result.toString())
+                    findNavController().navigate(R.id.action_createStepFragment_to_stepFragment)
+                }
+            }
+            is Result.Loading,
+            is Result.ConnectionError,
+            is Result.Error,
+            -> {
+                Toast.makeText(requireContext(), "Не удалось создать", Toast.LENGTH_LONG).show()
+            }
+            is Result.NotFoundError,
+            -> {
+                Log.e("bbbbb", result.toString())
+                Toast.makeText(requireContext(), result.toString(), Toast.LENGTH_LONG).show()
             }
         }
     }

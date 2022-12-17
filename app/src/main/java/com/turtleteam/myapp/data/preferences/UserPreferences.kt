@@ -8,12 +8,18 @@ class UserPreferences(context: Context) {
     companion object {
         private const val PREFS_NAME = "PREFERENCE"
         private const val USER_ID = "savedusertoken"
+        private const val EVENT_ID = "eventid"
+
     }
 
     private var preferences: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
-    fun getUserId(token: String) = preferences.edit().putString(USER_ID, token).apply()
+    fun getUserToken(token: String) = preferences.edit().putString(USER_ID, token).apply()
 
-    fun setUserId(): String? = preferences.getString(USER_ID, "0")
+    fun setUserToken(): String? = preferences.getString(USER_ID, "0")
+
+    fun getEventId(id: Int) = preferences.edit().putInt(USER_ID, id).apply()
+
+    fun setEventId(): Int? = preferences.getInt(USER_ID, 0)
 }

@@ -27,7 +27,7 @@ class SettingFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.signOutButton.setOnClickListener {
-         UserPreferences(requireContext()).getUserId("0")
+         UserPreferences(requireContext()).getUserToken("0")
          findNavController().navigate(R.id.action_settingFragment_to_authFragment)
         }
     }
