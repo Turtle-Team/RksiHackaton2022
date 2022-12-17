@@ -54,7 +54,8 @@ class HomeFragment : Fragment() {
     private fun handleViewStates(result: com.turtleteam.myapp.data.wrapper.Result<List<Events>>) {
         when (result) {
             is Result.ConnectionError,
-            is Result.Error -> {
+            is Result.Error,
+            -> {
                 binding.progressbar.visibility = View.GONE
                 binding.stateView.layoutviewstate.visibility = View.VISIBLE
                 binding.stateView.refreshButton.setOnClickListener {
@@ -66,13 +67,19 @@ class HomeFragment : Fragment() {
             is Result.NotFoundError,
             -> {
                 binding.progressbar.visibility = View.GONE
+                handleViewStates(Result.Success(emptyList()))
             }
             is Result.Loading -> {
                 binding.progressbar.visibility = View.VISIBLE
             }
             is Result.Success -> {
-                adapter.setData(result.value)
+                adapter.submitList(result.value)
                 binding.progressbar.visibility = View.GONE
+                lifecycleScope.launch {
+                    delay(4000)
+                    viewModel.getAllEvents()
+                }
+                Log.e("aaaa", "Повторный запрос")
             }
         }
     }
@@ -100,8 +107,6 @@ class HomeFragment : Fragment() {
     private fun deleteEvent(id: Int) {
         lifecycleScope.launch {
             viewModel.deleteEvent(id)
-            delay(300)
-            viewModel.getAllEvents()
         }
     }
 }
