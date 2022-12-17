@@ -52,7 +52,7 @@ class CreateEventFragment : Fragment() {
                         header = binding.titleEditText.text.toString(),
                         text = binding.descriptionEditText.text.toString(),
                         url = binding.urlEditText.text.toString(),
-                        date = getFormattedTime()
+                        date_start = "2022-12-16T22:23:21.451Z"
                     ),
                     savedToken
                 )

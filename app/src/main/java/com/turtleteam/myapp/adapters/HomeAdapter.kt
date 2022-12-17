@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.databinding.EventTimeBinding
-import java.text.SimpleDateFormat
 import java.time.OffsetDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -25,6 +24,7 @@ class HomeAdapter(
     private val edit: (item: Events) -> Unit,
     private val delete: (item: Int) -> Unit,
     private val url: (item: String) -> Unit,
+    private val openSteps: (item: Int) -> Unit
     ) : ListAdapter<Events, HomeAdapter.HomeHolder>(DiffUtils()) {
 
     class HomeHolder(
@@ -34,13 +34,14 @@ class HomeAdapter(
         private val edit: (item: Events) -> Unit,
         private val delete: (item: Int) -> Unit,
         private val url: (item: String) -> Unit,
+        private val openSteps: (item: Int) -> Unit
     ) :
         RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
         @SuppressLint("SimpleDateFormat")
         fun bind(item: Events) {
 
-            val date = item.date
+            val date = item.date_start
             val actual = OffsetDateTime.parse(date, DateTimeFormatter.ISO_DATE_TIME)
             val formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
             val formatDateTime = actual.format(formatter)
@@ -53,6 +54,10 @@ class HomeAdapter(
             binding.itemCard.setOnLongClickListener {
                 showPopup(binding.itemCard, item)
                 return@setOnLongClickListener true
+            }
+
+            binding.itemCard.setOnClickListener {
+                openSteps(item.id)
             }
         }
 
@@ -89,7 +94,7 @@ class HomeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeHolder {
         val inflater = EventTimeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeHolder(inflater, participate, participateEvent, edit, delete, url)
+        return HomeHolder(inflater, participate, participateEvent, edit, delete, url, openSteps)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

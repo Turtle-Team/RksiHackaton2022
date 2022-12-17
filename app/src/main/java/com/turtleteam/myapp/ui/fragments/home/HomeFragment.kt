@@ -34,7 +34,8 @@ class HomeFragment : Fragment() {
         participateEvent = { participateEvent() },
         edit = { editEvent(it) },
         delete = { deleteEvent(it) },
-        url = { urlEvent(it) }
+        url = { urlEvent(it) },
+        openSteps = {openSteps(it)}
     )
 
     override fun onCreateView(
@@ -55,6 +56,7 @@ class HomeFragment : Fragment() {
         }
         binding.homeRecyclerView.adapter = adapter
         observableData()
+
     }
 
     private fun handleViewStates(result: Result<List<Events>>) {
@@ -134,7 +136,7 @@ class HomeFragment : Fragment() {
                 "header" to item.header,
                 "text" to item.text,
                 "url" to item.url,
-                "date" to item.date
+                "date_start" to item.date_start
             )
         )
     }
@@ -145,5 +147,9 @@ class HomeFragment : Fragment() {
             delay(800)
             viewModel.getAllEvents()
         }
+    }
+
+    private fun openSteps(id: Int){
+        findNavController().navigate(R.id.action_homeFragment_to_stepFragment, bundleOf("id" to id))
     }
 }
