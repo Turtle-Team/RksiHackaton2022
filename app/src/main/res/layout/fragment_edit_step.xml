@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
-    tools:context=".ui.fragments.create_step.CreateStepFragment">
+    tools:context=".ui.fragments.edit_step.EditStepFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/qanelas"
                 android:gravity="center"
-                android:text="@string/create_step"
+                android:text="@string/edit_step"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
 
@@ -123,7 +123,7 @@
                 android:timePickerMode="spinner" />
 
             <Button
-                android:id="@+id/createStepButton"
+                android:id="@+id/saveEventButton"
                 android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -132,7 +132,7 @@
                 android:background="@drawable/edit_text_corners_night"
                 android:backgroundTint="@color/gray"
                 android:fontFamily="@font/qanelas"
-                android:text="@string/create"
+                android:text="@string/save"
                 android:textColor="@color/white" />
 
         </LinearLayout>

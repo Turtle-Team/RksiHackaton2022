@@ -6,12 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.adapters.StepAdapter
+import com.turtleteam.myapp.data.model.event.Events
+import com.turtleteam.myapp.data.model.step.Step
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.databinding.FragmentStepBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +28,7 @@ class StepFragment : Fragment() {
     private lateinit var binding: FragmentStepBinding
     private val viewModel: StepViewModel by viewModels()
     private val adapter = StepAdapter(
-        edit = {},
+        edit = { editStep(it) },
         delete = { deleteStep(id = it.event_id, stepId = it.id) }
     )
 
@@ -51,7 +55,9 @@ class StepFragment : Fragment() {
         observableData()
 
         binding.floatingButtonStep.setOnClickListener {
-            findNavController().navigate(R.id.action_stepFragment_to_createStepFragment)
+            findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
+                bundleOf("key" to id,))
+            Toast.makeText(requireContext(), id.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -59,6 +65,19 @@ class StepFragment : Fragment() {
         viewModel.steps.observe(viewLifecycleOwner) { list ->
             adapter.setData(list)
         }
+    }
+
+    private fun editStep(item: Step) {
+        findNavController().navigate(
+            R.id.action_stepFragment_to_editStepFragment,
+//            bundleOf(
+//                "key" to item.id,
+//                "header" to item.header,
+//                "text" to item.text,
+//                "url" to item.url,
+//                "date_start" to item.date_start
+//            )
+        )
     }
 
     private fun deleteStep(id: Int, stepId: Int) {

@@ -42,6 +42,7 @@ class StepAdapter(
                 when (item?.itemId) {
                     R.id.editStep -> {
                         Log.e("menu", item1.id.toString())
+                        edit(item1)
                     }
                     R.id.deleteStep -> {
                         Log.e("menu", "DELETE id: ${item1.id}")

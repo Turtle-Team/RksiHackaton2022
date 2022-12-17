@@ -37,4 +37,5 @@
     <string name="create_step">Создать этап</string>
     <string name="date_start">Дата начала</string>
     <string name="date_end">Дата окончания</string>
+    <string name="edit_step">Редактировать этап</string>
 </resources>

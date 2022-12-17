@@ -47,6 +47,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.editEventFragment -> bottomNavigationMenu.visibility = View.GONE
                 R.id.stepFragment -> bottomNavigationMenu.visibility = View.GONE
                 R.id.createStepFragment -> bottomNavigationMenu.visibility = View.GONE
+                R.id.editStepFragment -> bottomNavigationMenu.visibility = View.GONE
                 else -> bottomNavigationMenu.visibility = View.VISIBLE
             }
         }
