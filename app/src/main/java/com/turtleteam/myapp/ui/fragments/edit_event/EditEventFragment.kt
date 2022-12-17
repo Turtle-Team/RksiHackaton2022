@@ -1,6 +1,7 @@
 package com.turtleteam.myapp.ui.fragments.edit_event
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.databinding.FragmentEditEventBinding
 import com.turtleteam.myapp.ui.fragments.create_event.CreateEventViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 
 @AndroidEntryPoint
 class EditEventFragment : Fragment() {
@@ -30,11 +32,12 @@ class EditEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         // TODO ( Реализовать вставку данных )
-
+        val id = arguments?.getInt("key")
+        Log.e("ID", id.toString())
         binding.saveEventButton.setOnClickListener {
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.editEvent(
-                    id = 49,
+                    id = id!!,
                     EventRequestBody(
                         header = binding.titleEditText.text.toString(),
                         text = binding.descriptionEditText.text.toString(),
@@ -44,9 +47,7 @@ class EditEventFragment : Fragment() {
                     savedToken
                 )
             }
-
             findNavController().navigate(R.id.action_editEventFragment_to_homeFragment)
-
         }
     }
 }

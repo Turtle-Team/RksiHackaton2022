@@ -1,5 +1,6 @@
 package com.turtleteam.myapp.ui.fragments.create_event
 
+import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,15 +12,13 @@ import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.event.EventRequestBody
-import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDateTime
+import java.text.SimpleDateFormat
 
 @AndroidEntryPoint
 class CreateEventFragment : Fragment() {
@@ -36,9 +35,11 @@ class CreateEventFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("SimpleDateFormat")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.createEventButton.setOnClickListener {
+
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.createEvent(
                     EventRequestBody(
@@ -51,6 +52,7 @@ class CreateEventFragment : Fragment() {
                 )
             }
             it.isClickable = false
+
         }
 
         viewModel.result.observe(viewLifecycleOwner) {

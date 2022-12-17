@@ -1,5 +1,6 @@
 package com.turtleteam.myapp.adapters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.databinding.EventTimeBinding
+import java.text.SimpleDateFormat
 
 class HomeAdapter(
     private val participate: (item: Int) -> Unit,
@@ -28,10 +30,19 @@ class HomeAdapter(
         private val delete: (item: Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SimpleDateFormat")
         fun bind(item: Events) {
+
+            val date = item.date
+//            val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ")
+//            val dateEd = dateFormat.parse(date)
+
+//            Log.e("DATE", date.toString())
+
+
             binding.title.text = item.header
             binding.description.text = item.text
-            binding.date.text = item.date.toString()
+            binding.date.text = item.date
 
             binding.itemCard.setOnLongClickListener {
                 showPopup(binding.itemCard, item)

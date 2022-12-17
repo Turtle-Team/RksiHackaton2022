@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -92,7 +93,8 @@ class HomeFragment : Fragment() {
 
     private fun editEvent(item: Events) {
         Toast.makeText(requireContext(), item.id.toString(), Toast.LENGTH_LONG).show()
-        findNavController().navigate(R.id.action_homeFragment_to_editEventFragment)
+        findNavController().navigate(R.id.action_homeFragment_to_editEventFragment, bundleOf("key" to item.id))
+
     }
 
     private fun deleteEvent(id: Int) {
