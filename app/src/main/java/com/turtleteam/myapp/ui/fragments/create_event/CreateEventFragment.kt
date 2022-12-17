@@ -44,8 +44,6 @@ class CreateEventFragment : Fragment() {
 
         binding.createEventButton.setOnClickListener {
 
-            val iso8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'"
-
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.createEvent(
                     EventRequestBody(

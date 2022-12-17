@@ -34,4 +34,7 @@
     <string name="urls">Ссылки</string>
     <string name="hide">Свернуть</string>
     <string name="time">Время проведения</string>
+    <string name="create_step">Создать этап</string>
+    <string name="date_start">Дата начала</string>
+    <string name="date_end">Дата окончания</string>
 </resources>

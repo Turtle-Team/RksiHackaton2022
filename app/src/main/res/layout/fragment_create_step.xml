@@ -1,14 +1,140 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateStepFragment">
+    android:background="@color/gray"
+    tools:context=".ui.fragments.create_step.CreateStepFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:backgroundTint="@color/dark_purple"
+        app:cardCornerRadius="10dp">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/qanelas"
+                android:gravity="center"
+                android:text="@string/create_step"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/title"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white">
+
+                <EditText
+                    android:id="@+id/titleEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_text_corners_night"
+                    android:ems="10"
+                    android:fontFamily="@font/qanelas"
+                    android:inputType="textPersonName"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="@string/description"
+                android:textColorHint="@color/white"
+                app:hintTextColor="@color/white">
+
+                <EditText
+                    android:id="@+id/descriptionEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/edit_text_corners_night"
+                    android:ems="10"
+                    android:fontFamily="@font/qanelas"
+                    android:inputType="text|textMultiLine"
+                    android:minHeight="150dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:textColor="@color/white"
+                    android:textColorHint="@color/white" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <TextView
+                android:id="@+id/dateStartEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_corners_night"
+                android:fontFamily="@font/qanelas"
+                android:gravity="center"
+                android:text="@string/date_start"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="25sp" />
+
+            <TimePicker
+                android:id="@+id/timeStartpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:scaleX="0.90"
+                android:scaleY="1.10"
+                android:timePickerMode="spinner" />
+
+            <TextView
+                android:id="@+id/dateEndEditText"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/edit_text_corners_night"
+                android:fontFamily="@font/qanelas"
+                android:gravity="center"
+                android:text="@string/date_end"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="25sp" />
+
+            <TimePicker
+                android:id="@+id/timeEndpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:scaleX="0.90"
+                android:scaleY="1.10"
+                android:timePickerMode="spinner" />
+
+            <Button
+                android:id="@+id/createEventButton"
+                android:layout_width="250dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="40dp"
+                android:background="@drawable/edit_text_corners_night"
+                android:backgroundTint="@color/gray"
+                android:fontFamily="@font/qanelas"
+                android:text="@string/create"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</ScrollView>

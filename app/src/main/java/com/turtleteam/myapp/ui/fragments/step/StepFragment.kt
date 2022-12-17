@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.adapters.StepAdapter
 import com.turtleteam.myapp.data.preferences.UserPreferences
@@ -42,6 +43,10 @@ class StepFragment : Fragment() {
         binding.stepRecyclerView.adapter = adapter
 
         observableData()
+
+        binding.floatingButtonStep.setOnClickListener {
+            findNavController().navigate(R.id.action_stepFragment_to_createStepFragment)
+        }
     }
 
     private fun observableData() {

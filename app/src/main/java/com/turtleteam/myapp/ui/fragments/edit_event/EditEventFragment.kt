@@ -45,7 +45,7 @@ class EditEventFragment : Fragment() {
         val header = arguments?.getString("header")
         val text = arguments?.getString("text")
         val url = arguments?.getString("url")
-        val date = arguments?.getString("date")
+        val date = arguments?.getString("date_start")
 
         binding.titleEditText.setText(header)
         binding.descriptionEditText.setText(text)
