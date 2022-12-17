@@ -73,4 +73,18 @@
             android:id="@+id/action_editEventFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/stepFragment"
+        android:name="com.turtleteam.myapp.ui.fragments.step.StepFragment"
+        android:label="Этапы"
+        tools:layout="@layout/fragment_step" >
+        <action
+            android:id="@+id/action_stepFragment_to_createStepFragment"
+            app:destination="@id/createStepFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createStepFragment"
+        android:name="com.turtleteam.myapp.ui.fragments.create_step.CreateStepFragment"
+        android:label="Создание этапа"
+        tools:layout="@layout/fragment_create_step" />
 </navigation>

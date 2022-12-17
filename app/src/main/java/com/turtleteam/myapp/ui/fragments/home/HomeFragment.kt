@@ -18,6 +18,7 @@ import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentHomeBinding
+import com.turtleteam.myapp.dialogs.EventDialog
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -32,7 +33,8 @@ class HomeFragment : Fragment() {
         participate = { participate() },
         participateEvent = { participateEvent() },
         edit = { editEvent(it) },
-        delete = { deleteEvent(it) }
+        delete = { deleteEvent(it) },
+        url = { urlEvent(it) }
     )
 
     override fun onCreateView(
@@ -88,6 +90,7 @@ class HomeFragment : Fragment() {
                 }
                 Log.e("aaaa", "Повторный запрос")
             }
+            else -> {}
         }
     }
 
@@ -104,6 +107,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun urlEvent(url: String) {
+//        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
+
+        val fm = requireFragmentManager()
+        val dialogFragment = EventDialog()
+        val urls = bundleOf("urls" to url)
+        dialogFragment.arguments = urls
+        EventDialog().show(fm, "Ссылки")
+    }
+
     private fun participate() {
 
     }
@@ -114,8 +127,16 @@ class HomeFragment : Fragment() {
 
     private fun editEvent(item: Events) {
         Toast.makeText(requireContext(), item.id.toString(), Toast.LENGTH_LONG).show()
-        findNavController().navigate(R.id.action_homeFragment_to_editEventFragment,
-            bundleOf("key" to item.id))
+        findNavController().navigate(
+            R.id.action_homeFragment_to_editEventFragment,
+            bundleOf(
+                "key" to item.id,
+                "header" to item.header,
+                "text" to item.text,
+                "url" to item.url,
+                "date" to item.date
+            )
+        )
     }
 
     private fun deleteEvent(id: Int) {

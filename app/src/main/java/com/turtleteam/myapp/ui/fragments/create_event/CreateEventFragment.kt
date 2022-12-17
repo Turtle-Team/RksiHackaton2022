@@ -19,7 +19,6 @@ import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentCreateEventBinding
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
-import java.util.*
 
 @AndroidEntryPoint
 class CreateEventFragment : Fragment() {
@@ -43,6 +42,9 @@ class CreateEventFragment : Fragment() {
         binding.timepicker.hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
 
         binding.createEventButton.setOnClickListener {
+
+            val iso8601 = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
                 viewModel.createEvent(
                     EventRequestBody(

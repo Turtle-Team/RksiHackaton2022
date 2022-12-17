@@ -31,4 +31,6 @@
     <string name="signOut">Выйти с аккаунта</string>
     <string name="edit_event">Редактирование мероприятия</string>
     <string name="save">Сохранить</string>
+    <string name="urls">Ссылки</string>
+    <string name="hide">Свернуть</string>
 </resources>

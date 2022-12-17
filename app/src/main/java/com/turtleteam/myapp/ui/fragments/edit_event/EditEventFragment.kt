@@ -31,8 +31,17 @@ class EditEventFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // TODO ( Реализовать вставку данных )
         val id = arguments?.getInt("key")
+        val header = arguments?.getString("header")
+        val text = arguments?.getString("text")
+        val url = arguments?.getString("url")
+        val date = arguments?.getString("date")
+
+        binding.titleEditText.setText(header)
+        binding.descriptionEditText.setText(text)
+        binding.urlEditText.setText(url)
+        binding.dateEditText.setText(date)
+
         Log.e("ID", id.toString())
         binding.saveEventButton.setOnClickListener {
             UserPreferences(requireContext()).setUserId()?.let { savedToken ->
