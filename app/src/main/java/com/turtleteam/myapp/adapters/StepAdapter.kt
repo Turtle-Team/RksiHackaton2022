@@ -1,5 +1,6 @@
 package com.turtleteam.myapp.adapters
 
+import android.annotation.SuppressLint
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.MenuItem
@@ -26,10 +27,11 @@ class StepAdapter(
         private val url: (item: String) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
+        @SuppressLint("SetTextI18n")
         fun bind(item: Step) {
             binding.title.text = item.header
             binding.description.text = item.text
-            binding.time.text = item.date
+            binding.time.text = "${item.date_start} : ${item.date_end}"
 
             binding.itemCard.setOnLongClickListener {
                 showPopup(binding.itemCard, item)
