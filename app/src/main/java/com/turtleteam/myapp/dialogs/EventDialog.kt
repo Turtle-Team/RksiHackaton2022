@@ -11,6 +11,9 @@ import com.turtleteam.myapp.databinding.DialogEventBinding
 class EventDialog : DialogFragment() {
 
     private lateinit var binding: DialogEventBinding
+    companion object{
+        var urls:String? = null
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,8 +26,9 @@ class EventDialog : DialogFragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val urls = arguments?.getString("urls")
-        binding.urlsTextView.text = urls
+        if (urls!=null) {
+            binding.urlsTextView.text = urls
+        }
 
         binding.hideEventButton.setOnClickListener {
             requireDialog().cancel()

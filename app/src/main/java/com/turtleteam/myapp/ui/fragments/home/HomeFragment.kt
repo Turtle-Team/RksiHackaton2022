@@ -109,12 +109,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun urlEvent(url: String) {
-//        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
-
+        EventDialog.urls = url
         val fm = parentFragmentManager
-        val dialogFragment = EventDialog()
-//        val urls = bundleOf("urls" to url)
-        dialogFragment.arguments?.putString("urls", url)
         EventDialog().show(fm, "Ссылки")
     }
 
