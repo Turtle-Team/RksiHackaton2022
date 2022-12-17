@@ -19,7 +19,7 @@ class UserPreferences(context: Context) {
 
     fun setUserToken(): String? = preferences.getString(USER_ID, "0")
 
-    fun getEventId(id: Int) = preferences.edit().putInt(USER_ID, id).apply()
+    fun getEventId(id: Int) = preferences.edit().putInt(EVENT_ID, id).apply()
 
-    fun setEventId(): Int? = preferences.getInt(USER_ID, 0)
+    fun setEventId(): Int = preferences.getInt(EVENT_ID, 0)
 }
