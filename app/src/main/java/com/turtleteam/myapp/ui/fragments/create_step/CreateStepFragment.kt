@@ -66,7 +66,7 @@ class CreateStepFragment : Fragment() {
         }
 
         binding.createStepButton.setOnClickListener {
-            UserPreferences(requireContext()).setUserId()?.let { savedToken ->
+            UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
                 if (id!=null) {
                     viewModel.createStep(
                         id, StepRequestBody(

@@ -15,6 +15,7 @@ import com.turtleteam.myapp.R
 import com.turtleteam.myapp.adapters.StepAdapter
 import com.turtleteam.myapp.data.model.step.Step
 import com.turtleteam.myapp.data.preferences.UserPreferences
+import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentStepBinding
 import com.turtleteam.myapp.dialogs.EventDialog
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,6 +27,7 @@ class StepFragment : Fragment() {
 
     private lateinit var binding: FragmentStepBinding
     private val viewModel: StepViewModel by viewModels()
+    private lateinit var myToken: String
     private val adapter = StepAdapter(
         edit = { editStep(it) },
         delete = { deleteStep(id = it.event_id, stepId = it.id) },
@@ -41,6 +43,7 @@ class StepFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentStepBinding.inflate(layoutInflater, container, false)
+        myToken = UserPreferences(requireContext()).setUserToken().toString()
         return binding.root
     }
 
@@ -48,7 +51,7 @@ class StepFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mId = arguments?.getInt("id")
-        UserPreferences(requireContext()).setUserId()?.let { savedToken ->
+        UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
             if (id != null) {
                 viewModel.getStepsByEvent(id, savedToken)
             }
@@ -69,7 +72,7 @@ class StepFragment : Fragment() {
 
     private fun observableData() {
         viewModel.steps.observe(viewLifecycleOwner) { list ->
-            adapter.setData(list)
+            handleViewStates(list)
         }
     }
 
@@ -86,23 +89,55 @@ class StepFragment : Fragment() {
         )
     }
 
-    private fun urlStep(url: String){
-        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
-        EventDialog().show(requireFragmentManager(), "URL")
+    private fun handleViewStates(result: Result<List<Step>>) {
+        when (result) {
+            is Result.ConnectionError,
+            is Result.Error,
+            -> {
+                binding.progressbar.visibility = View.GONE
+                binding.stateView.layoutviewstate.visibility = View.VISIBLE
+                handleViewStates(Result.Success(emptyList()))
+                binding.stateView.refreshButton.setOnClickListener {
+                    binding.progressbar.visibility = View.VISIBLE
+                    binding.stateView.layoutviewstate.visibility = View.GONE
+                    UserPreferences(requireContext()).setUserToken()
+                        ?.let { it1 -> mId?.let { it2 -> viewModel.getStepsByEvent(it2, it1) } }
+                }
+            }
+            is Result.NotFoundError,
+            -> {
+                binding.progressbar.visibility = View.GONE
+                handleViewStates(Result.Success(emptyList()))
+            }
+            is Result.Loading -> {
+                binding.progressbar.visibility = View.VISIBLE
+            }
+            is Result.Success -> {
+                adapter.submitList(result.value)
+                binding.progressbar.visibility = View.GONE
+                lifecycleScope.launch {
+                    delay(10000)
+                    if (myToken != null && mId != null) {
+                        viewModel.getStepsByEvent(mId!!, myToken)
+                    }
+                }
+                Log.e("aaaa", "Повторный запрос")
+            }
+        }
+    }
+
+    private fun urlStep(url: String) {
         val list = url.split(" ")
         EventDialog.urls = list
-        val fm = parentFragmentManager
-        EventDialog().show(fm, "Ссылки")
+        EventDialog().show(parentFragmentManager, "Ссылки")
     }
 
     private fun deleteStep(id: Int, stepId: Int) {
-        UserPreferences(requireContext()).setUserId()?.let { savedToken ->
-            lifecycleScope.launch {
-                viewModel.deleteStep(id, stepId, savedToken)
-                delay(800)
-                viewModel.getStepsByEvent(id, savedToken)
-                Log.e("DELETE", "OKEY")
-            }
+        lifecycleScope.launch {
+            viewModel.deleteStep(id, stepId, myToken)
+            delay(800)
+            viewModel.getStepsByEvent(id, myToken)
+            Log.e("DELETE", "OKEY")
         }
     }
 }

@@ -6,6 +6,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.step.Step
@@ -15,9 +16,8 @@ class StepAdapter(
     private val edit: (item: Step) -> Unit,
     private val delete: (item: Step) -> Unit,
     private val url: (item: String) -> Unit,
-) : RecyclerView.Adapter<StepAdapter.StepHolder>() {
+) : ListAdapter<Step, StepAdapter.StepHolder>(DiffUtils()) {
 
-    private val steps = mutableListOf<Step>()
 
     class StepHolder(
         private val binding: StepItemBinding,
@@ -67,15 +67,6 @@ class StepAdapter(
     }
 
     override fun onBindViewHolder(holder: StepHolder, position: Int) {
-        holder.bind(steps[position])
-    }
-
-    override fun getItemCount(): Int = steps.size
-
-
-    fun setData(list: List<Step>) {
-        steps.clear()
-        steps.addAll(list)
-        notifyDataSetChanged()
+        holder.bind(currentList[position])
     }
 }

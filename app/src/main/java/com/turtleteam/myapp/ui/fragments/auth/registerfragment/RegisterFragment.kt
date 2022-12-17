@@ -8,7 +8,6 @@ import android.widget.PopupMenu
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.google.gson.Gson
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
 import com.turtleteam.myapp.data.model.users.UserId
@@ -16,7 +15,6 @@ import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentRegisterBinding
 import com.turtleteam.myapp.ui.fragments.auth.base.BaseAuthFragment
-import com.turtleteam.myapp.utils.ViewAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -41,7 +39,7 @@ class RegisterFragment : BaseAuthFragment<FragmentRegisterBinding>() {
             viewModel.register(AuthRequestBody(
                 binding.fioEditText.text.toString(),
                 binding.postEditText.text.toString(),
-                binding.organizationEditText.toString(),
+                binding.organizationEditText.text.toString(),
                 binding.statusPopupButton.text.toString(),
                 binding.emailEditText.text.toString(),
                 binding.passwordEditText.text.toString()
@@ -67,11 +65,11 @@ class RegisterFragment : BaseAuthFragment<FragmentRegisterBinding>() {
         }
     }
 
-    private fun handleResult(result: com.turtleteam.myapp.data.wrapper.Result<UserId>) {
+    private fun handleResult(result: Result<UserId>) {
         when (result) {
             is Result.Success -> {
                 if (result.value.token!=null) {
-                    context?.let { UserPreferences(it).getUserId(result.value.token) }
+                    context?.let { UserPreferences(it).getUserToken(result.value.token) }
                     Toast.makeText(context, result.value.token, Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                 }else{

@@ -24,7 +24,7 @@ class AuthFragment : BaseAuthFragment<FragmentAuthBinding>() {
     private val viewModel by viewModels<AuthViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (UserPreferences(requireContext()).setUserId() != "0") {
+        if (UserPreferences(requireContext()).setUserToken() != "0") {
             findNavController().navigate(R.id.action_authFragment_to_homeFragment)
         }
         binding.authButton.setOnClickListener {
@@ -61,7 +61,7 @@ class AuthFragment : BaseAuthFragment<FragmentAuthBinding>() {
         when (result) {
             is Result.Success -> {
                 if (result.value.token != null) {
-                    context?.let { UserPreferences(it).getUserId(result.value.token) }
+                    context?.let { UserPreferences(it).getUserToken(result.value.token) }
                     Toast.makeText(context, result.value.token, Toast.LENGTH_LONG).show()
                     Log.e("TOKEN", result.value.token)
                     findNavController().navigate(R.id.action_authFragment_to_homeFragment)

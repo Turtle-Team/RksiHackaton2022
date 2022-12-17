@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
-        UserPreferences(requireContext()).setUserId()?.let {
+        UserPreferences(requireContext()).setUserToken()?.let {
             viewModel.getUser(it)
             Log.e("aaaa", it)
         }
@@ -70,7 +70,7 @@ class HomeFragment : Fragment() {
                     binding.progressbar.visibility = View.VISIBLE
                     binding.stateView.layoutviewstate.visibility = View.GONE
                     viewModel.getAllEvents()
-                    UserPreferences(requireContext()).setUserId()
+                    UserPreferences(requireContext()).setUserToken()
                         ?.let { it1 -> viewModel.getUser(it1) }
                 }
             }
@@ -91,7 +91,6 @@ class HomeFragment : Fragment() {
                 }
                 Log.e("aaaa", "Повторный запрос")
             }
-            else -> {}
         }
     }
 
@@ -100,21 +99,22 @@ class HomeFragment : Fragment() {
             handleViewStates(list)
         }
         viewModel.user.observe(viewLifecycleOwner) { user ->
-            if (user != null) {
-                if (user.body()!!.status == "Организатор") {
-                    binding.floatingButton.isVisible = true
+            try {
+                if (user != null) {
+                    if (user.body()!!.status == "Организатор") {
+                        binding.floatingButton.isVisible = true
+                    }
                 }
+            } catch (e: Exception) {
+                UserPreferences(requireContext()).setUserToken()?.let { viewModel.getUser(it) }
             }
         }
     }
 
     private fun urlEvent(url: String) {
-        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
-        EventDialog().show(requireFragmentManager(), "URL")
         val list = url.split(" ")
         EventDialog.urls = list
-        val fm = parentFragmentManager
-        EventDialog().show(fm, "Ссылки")
+        EventDialog().show(parentFragmentManager, "Ссылки")
     }
 
     private fun participate() {
@@ -126,24 +126,24 @@ class HomeFragment : Fragment() {
     }
 
     private fun editEvent(item: Events) {
-        if (viewModel.user.value!!.body()!!.status == "Организатор"&& viewModel.user.value!!.body()!=null) {
-                findNavController().navigate(
-                    R.id.action_homeFragment_to_editEventFragment,
-                    bundleOf(
-                        "key" to item.id,
-                        "header" to item.header,
-                        "text" to item.text,
-                        "url" to item.url,
-                        "date_start" to item.date_start
-                    )
+        if (viewModel.user.value!!.body()!!.status == "Организатор" && viewModel.user.value!!.body() != null) {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_editEventFragment,
+                bundleOf(
+                    "key" to item.id,
+                    "header" to item.header,
+                    "text" to item.text,
+                    "url" to item.url,
+                    "date_start" to item.date_start
                 )
+            )
         } else {
             Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun deleteEvent(id: Int) {
-        if (viewModel.user.value!!.body()!!.status == "Организатор"&& viewModel.user.value!!.body()!=null) {
+        if (viewModel.user.value!!.body()!!.status == "Организатор" && viewModel.user.value!!.body() != null) {
             lifecycleScope.launch {
                 viewModel.deleteEvent(id)
                 delay(800)
