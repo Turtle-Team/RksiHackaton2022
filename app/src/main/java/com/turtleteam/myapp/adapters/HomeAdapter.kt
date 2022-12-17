@@ -14,7 +14,7 @@ import com.turtleteam.myapp.databinding.EventTimeBinding
 class HomeAdapter(
     private val participate: (item: Int) -> Unit,
     private val participateEvent: (item: Int) -> Unit,
-    private val edit: (item: Int) -> Unit,
+    private val edit: (item: Events) -> Unit,
     private val delete: (item: Int) -> Unit,
 ) : RecyclerView.Adapter<HomeAdapter.HomeHolder>() {
 
@@ -24,14 +24,14 @@ class HomeAdapter(
         private val binding: EventTimeBinding,
         private val participate: (item: Int) -> Unit,
         private val participateEvent: (item: Int) -> Unit,
-        private val edit: (item: Int) -> Unit,
+        private val edit: (item: Events) -> Unit,
         private val delete: (item: Int) -> Unit,
     ) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Events) {
             binding.title.text = item.header
             binding.description.text = item.text
-            binding.date.text = item.date
+            binding.date.text = item.date.toString()
 
             binding.itemCard.setOnLongClickListener {
                 showPopup(binding.itemCard, item)
@@ -51,6 +51,7 @@ class HomeAdapter(
                         Log.e("menu", "PARTICIPATE EVENT")
                     }
                     R.id.editEvent -> {
+                        edit(item1)
                         Log.e("menu", "EDIT EVENT")
                     }
                     R.id.deleteEvent -> {

@@ -7,7 +7,7 @@ class UserPreferences(context: Context) {
 
     companion object {
         private const val PREFS_NAME = "PREFERENCE"
-        private const val USER_ID = "userid"
+        private const val USER_ID = "savedusertoken"
     }
 
     private var preferences: SharedPreferences =

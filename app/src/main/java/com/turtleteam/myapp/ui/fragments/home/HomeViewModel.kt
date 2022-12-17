@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.repositories.EventRepository
+import com.turtleteam.myapp.data.wrapper.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -15,16 +16,20 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: EventRepository) : ViewModel() {
 
-    private val _events = MutableLiveData<List<Events>>()
-    val events: LiveData<List<Events>> = _events
+    private val _events =
+        MutableLiveData<Result<List<Events>>>(com.turtleteam.myapp.data.wrapper.Result.Loading)
+    val events: LiveData<Result<List<Events>>> = _events
+
+    init {
+        getAllEvents()
+    }
 
     fun getAllEvents() = viewModelScope.launch(Dispatchers.IO) {
-        Log.e("EVENTS", repository.getAllEvent().toString())
+        _events.postValue(com.turtleteam.myapp.data.wrapper.Result.Loading)
         _events.postValue(repository.getAllEvent())
     }
 
     fun deleteEvent(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        repository.deleteEvent(id)
-        Log.e("DELETE", "OKEY")
+        repository.deleteEvent(7)
     }
 }
