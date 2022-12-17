@@ -91,14 +91,26 @@
                 android:textColorHint="@color/white"
                 android:textSize="25sp" />
 
+            <DatePicker
+                android:id="@+id/datestartpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:calendarTextColor="@color/white"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:layout_gravity="center"
+                android:scaleX="0.90"
+                android:scaleY="1.10" />
+
             <TimePicker
-                android:id="@+id/timeStartpicker"
+                android:id="@+id/timestartpicker"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:scaleX="0.90"
                 android:scaleY="1.10"
                 android:timePickerMode="spinner" />
+
 
             <TextView
                 android:id="@+id/dateEndEditText"
@@ -113,14 +125,26 @@
                 android:textColorHint="@color/white"
                 android:textSize="25sp" />
 
+            <DatePicker
+                android:id="@+id/dateendpicker"
+                android:layout_width="wrap_content"
+                android:layout_height="150dp"
+                android:calendarTextColor="@color/white"
+                android:calendarViewShown="false"
+                android:datePickerMode="spinner"
+                android:layout_gravity="center"
+                android:scaleX="0.90"
+                android:scaleY="1.10" />
+
             <TimePicker
-                android:id="@+id/timeEndpicker"
+                android:id="@+id/timeendpicker"
                 android:layout_width="wrap_content"
                 android:layout_height="150dp"
                 android:layout_gravity="center"
                 android:scaleX="0.90"
                 android:scaleY="1.10"
                 android:timePickerMode="spinner" />
+
 
             <Button
                 android:id="@+id/createStepButton"

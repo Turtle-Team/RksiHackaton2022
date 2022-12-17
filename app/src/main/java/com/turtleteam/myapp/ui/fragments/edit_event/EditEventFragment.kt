@@ -114,6 +114,7 @@ class EditEventFragment : Fragment() {
         }.time
         val formattedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").format(date)
         binding.dateEditText.text = formattedDate
+        Log.e("aaaa", formattedDate.toString())
         return formattedDate
     }
 }
