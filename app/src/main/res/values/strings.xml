@@ -27,4 +27,6 @@
     <string name="participateEvent">Участники</string>
     <string name="delete">Удалить</string>
     <string name="edit">Редактировать</string>
+    <string name="night_theme">Темная тема</string>
+    <string name="signOut">Выйти с аккаунта</string>
 </resources>
