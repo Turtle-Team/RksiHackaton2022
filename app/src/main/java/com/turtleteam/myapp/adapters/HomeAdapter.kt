@@ -7,20 +7,18 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.databinding.EventTimeBinding
-import java.text.SimpleDateFormat
 
 class HomeAdapter(
     private val participate: (item: Int) -> Unit,
     private val participateEvent: (item: Int) -> Unit,
     private val edit: (item: Events) -> Unit,
     private val delete: (item: Int) -> Unit,
-) : RecyclerView.Adapter<HomeAdapter.HomeHolder>() {
-
-    private val events = mutableListOf<Events>()
+) : ListAdapter<Events, HomeAdapter.HomeHolder>(DiffUtils()) {
 
     class HomeHolder(
         private val binding: EventTimeBinding,
@@ -83,14 +81,6 @@ class HomeAdapter(
     }
 
     override fun onBindViewHolder(holder: HomeHolder, position: Int) {
-        holder.bind(events[position])
-    }
-
-    override fun getItemCount(): Int = events.size
-
-    fun setData(list: List<Events>) {
-        events.clear()
-        events.addAll(list)
-        notifyDataSetChanged()
+        holder.bind(currentList[position])
     }
 }
