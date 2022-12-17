@@ -4,7 +4,6 @@ import com.turtleteam.myapp.data.api.EventService
 import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
-import com.turtleteam.myapp.data.model.users.UserId
 import com.turtleteam.myapp.data.wrapper.NetworkResultWrapper
 import com.turtleteam.myapp.data.wrapper.Result
 import retrofit2.Response
@@ -29,6 +28,10 @@ class EventRepository @Inject constructor(private val apiService: EventService) 
 
     suspend fun deleteEvent(id: Int) = apiService.deleteEvent(id = id)
 
-    suspend fun editEvent(id: Int, eventModel: EventRequestBody, token: String) =
-        apiService.editEvent(id = id, eventModel = eventModel, token = token)
+    suspend fun editEvent(id: Int, eventModel: EventRequestBody, token: String): Result<Throwable> =
+        NetworkResultWrapper.wrapWithResult {
+            apiService.editEvent(id = id,
+                eventModel = eventModel,
+                token = token)
+        }
 }
