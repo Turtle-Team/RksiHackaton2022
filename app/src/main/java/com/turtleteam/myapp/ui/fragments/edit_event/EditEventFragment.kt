@@ -1,13 +1,16 @@
 package com.turtleteam.myapp.ui.fragments.edit_event
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.preferences.UserPreferences
@@ -15,6 +18,8 @@ import com.turtleteam.myapp.databinding.FragmentEditEventBinding
 import com.turtleteam.myapp.ui.fragments.create_event.CreateEventViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class EditEventFragment : Fragment() {
@@ -37,7 +42,7 @@ class EditEventFragment : Fragment() {
         val header = arguments?.getString("header")
         val text = arguments?.getString("text")
         val url = arguments?.getString("url")
-        val date = arguments?.getString("date_start")
+        val date = arguments?.getString("date")
 
         binding.titleEditText.setText(header)
         binding.descriptionEditText.setText(text)
@@ -53,7 +58,7 @@ class EditEventFragment : Fragment() {
                         header = binding.titleEditText.text.toString(),
                         text = binding.descriptionEditText.text.toString(),
                         url = binding.urlEditText.text.toString(),
-                        date_start = "2022-12-16T22:23:21.451Z"
+                        date_start = getFormattedTime()
                     ),
                     savedToken
                 )

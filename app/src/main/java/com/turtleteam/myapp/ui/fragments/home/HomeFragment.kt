@@ -56,7 +56,6 @@ class HomeFragment : Fragment() {
         }
         binding.homeRecyclerView.adapter = adapter
         observableData()
-
     }
 
     private fun handleViewStates(result: Result<List<Events>>) {
@@ -112,10 +111,10 @@ class HomeFragment : Fragment() {
     private fun urlEvent(url: String) {
 //        Toast.makeText(requireContext(), url, Toast.LENGTH_SHORT).show()
 
-        val fm = requireFragmentManager()
+        val fm = parentFragmentManager
         val dialogFragment = EventDialog()
-        val urls = bundleOf("urls" to url)
-        dialogFragment.arguments = urls
+//        val urls = bundleOf("urls" to url)
+        dialogFragment.arguments?.putString("urls", url)
         EventDialog().show(fm, "Ссылки")
     }
 
