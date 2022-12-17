@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
-        UserPreferences(requireContext()).setUserId()?.let {
+        UserPreferences(requireContext()).setUserToken()?.let {
             viewModel.getUser(it)
             Log.e("aaaa", it)
         }
@@ -33,7 +33,6 @@ class ProfileFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("PROFILE", viewModel.user.value.toString())
 
 
         viewModel.user.observe(viewLifecycleOwner) { user ->

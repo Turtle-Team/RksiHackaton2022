@@ -18,6 +18,9 @@ class StepViewModel @Inject constructor(private val repository: StepRepository) 
     private val _steps = MutableLiveData<Result<List<Step>>>()
     var steps: LiveData<Result<List<Step>>> = _steps
 
+    var eventId = 0
+    var mtoken = ""
+
     fun getStepsByEvent(id: Int, token: String) = viewModelScope.launch(Dispatchers.IO) {
         _steps.postValue(repository.getStepsByEvent(id, token))
     }

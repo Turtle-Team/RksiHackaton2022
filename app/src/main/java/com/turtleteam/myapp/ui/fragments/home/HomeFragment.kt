@@ -19,6 +19,7 @@ import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentHomeBinding
 import com.turtleteam.myapp.dialogs.EventDialog
+import com.turtleteam.myapp.ui.fragments.step.StepFragment
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
