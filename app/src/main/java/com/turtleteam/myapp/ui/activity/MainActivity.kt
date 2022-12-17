@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.registerButton,
                 R.id.participateFragment,
                 R.id.settingFragment,
-                R.id.createEventFragment
+                R.id.createEventFragment,
+                R.id.stepFragment,
+                R.id.createStepFragment
             )
         )
 

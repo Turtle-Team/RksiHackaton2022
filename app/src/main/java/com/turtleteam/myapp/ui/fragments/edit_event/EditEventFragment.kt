@@ -31,7 +31,6 @@ class EditEventFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        // TODO ( Реализовать вставку данных )
         val id = arguments?.getInt("key")
         val header = arguments?.getString("header")
         val text = arguments?.getString("text")
