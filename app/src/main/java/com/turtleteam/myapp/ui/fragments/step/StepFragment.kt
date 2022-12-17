@@ -27,33 +27,35 @@ class StepFragment : Fragment() {
 
     private lateinit var binding: FragmentStepBinding
     private val viewModel: StepViewModel by viewModels()
-    private lateinit var myToken: String
     private val adapter = StepAdapter(
         edit = { editStep(it) },
         delete = { deleteStep(id = it.event_id, stepId = it.id) },
         url = { urlStep(it) }
     )
 
-    companion object {
-        private var mId: Int? = null
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentStepBinding.inflate(layoutInflater, container, false)
-        myToken = UserPreferences(requireContext()).setUserToken().toString()
+        arguments?.getInt("id").let {
+            if (it != null) {
+                viewModel.eventId = it
+            }
+        }
+        UserPreferences(requireContext()).apply {
+            viewModel.mtoken = setUserToken().toString()
+        }
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mId = arguments?.getInt("id")
         UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
-            if (mId != null) {
-                viewModel.getStepsByEvent(mId!!, savedToken)
+            if (viewModel.eventId != null) {
+                viewModel.getStepsByEvent(viewModel.eventId, savedToken)
             }
         }
 
@@ -65,8 +67,8 @@ class StepFragment : Fragment() {
 
         binding.floatingButtonStep.setOnClickListener {
             findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
-                bundleOf("key" to mId))
-            Toast.makeText(requireContext(), mId.toString(), Toast.LENGTH_SHORT).show()
+                bundleOf("key" to id))
+            Toast.makeText(requireContext(), id.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -100,8 +102,7 @@ class StepFragment : Fragment() {
                 binding.stateView.refreshButton.setOnClickListener {
                     binding.progressbar.visibility = View.VISIBLE
                     binding.stateView.layoutviewstate.visibility = View.GONE
-                    UserPreferences(requireContext()).setUserToken()
-                        ?.let { it1 -> mId?.let { it2 -> viewModel.getStepsByEvent(it2, it1) } }
+                    viewModel.getStepsByEvent(viewModel.eventId, viewModel.mtoken)
                 }
             }
             is Result.NotFoundError,
@@ -117,9 +118,7 @@ class StepFragment : Fragment() {
                 binding.progressbar.visibility = View.GONE
                 lifecycleScope.launch {
                     delay(10000)
-                    if (myToken != null && mId != null) {
-                        viewModel.getStepsByEvent(mId!!, myToken)
-                    }
+                    viewModel.getStepsByEvent(viewModel.eventId, viewModel.mtoken)
                 }
                 Log.e("aaaa", "Повторный запрос")
             }
@@ -134,9 +133,9 @@ class StepFragment : Fragment() {
 
     private fun deleteStep(id: Int, stepId: Int) {
         lifecycleScope.launch {
-            viewModel.deleteStep(id, stepId, myToken)
+            viewModel.deleteStep(id, stepId, viewModel.mtoken)
             delay(800)
-            viewModel.getStepsByEvent(id, myToken)
+            viewModel.getStepsByEvent(id, viewModel.mtoken)
             Log.e("DELETE", "OKEY")
         }
     }

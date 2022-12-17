@@ -35,7 +35,6 @@ class ProfileFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        Log.e("PROFILE", viewModel.user.value.toString())
 
         viewModel.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
