@@ -48,17 +48,6 @@
         android:label="@string/participate"
         tools:layout="@layout/fragment_participate" />
     <fragment
-        android:id="@+id/settingFragment"
-        android:name="com.turtleteam.myapp.ui.fragments.setting.SettingFragment"
-        android:label="Настройки"
-        tools:layout="@layout/fragment_setting" >
-        <action
-            android:id="@+id/action_settingFragment_to_authFragment"
-            app:destination="@id/authFragment"
-            app:popUpToInclusive="true"
-            app:popUpTo="@id/settingFragment"/>
-    </fragment>
-    <fragment
         android:id="@+id/createEventFragment"
         android:name="com.turtleteam.myapp.ui.fragments.create_event.CreateEventFragment"
         android:label="Создать мероприятие"
@@ -108,5 +97,9 @@
         android:id="@+id/profileFragment"
         android:name="com.turtleteam.myapp.ui.fragments.profile.ProfileFragment"
         android:label="Профиль"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_authFragment"
+            app:destination="@id/authFragment" />
+    </fragment>
 </navigation>

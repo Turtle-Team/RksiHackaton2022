@@ -52,8 +52,8 @@ class StepFragment : Fragment() {
 
         mId = arguments?.getInt("id")
         UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
-            if (id != null) {
-                viewModel.getStepsByEvent(id, savedToken)
+            if (mId != null) {
+                viewModel.getStepsByEvent(mId!!, savedToken)
             }
         }
 
@@ -65,8 +65,8 @@ class StepFragment : Fragment() {
 
         binding.floatingButtonStep.setOnClickListener {
             findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
-                bundleOf("key" to id))
-            Toast.makeText(requireContext(), id.toString(), Toast.LENGTH_SHORT).show()
+                bundleOf("key" to mId))
+            Toast.makeText(requireContext(), mId.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 

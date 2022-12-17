@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.databinding.FragmentProfileBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,7 +25,7 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
-        UserPreferences(requireContext()).setUserId()?.let {
+        UserPreferences(requireContext()).setUserToken()?.let {
             viewModel.getUser(it)
             Log.e("aaaa", it)
         }
@@ -35,16 +37,19 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         Log.e("PROFILE", viewModel.user.value.toString())
 
-
         viewModel.user.observe(viewLifecycleOwner) { user ->
             if (user != null) {
-//                Toast.makeText(requireContext(), user.body()?.fio.toString(), Toast.LENGTH_SHORT).show()
                 binding.fioTextView.text = user.body()?.fio
                 binding.postTextView.text = "Должность: ${user.body()?.post}"
                 binding.oranizationTextView.text = "Организация: ${user.body()?.organization}"
                 binding.statusTextView.text = "Статус: ${user.body()?.status}"
                 binding.emailTextView.text = "Почта: ${user.body()?.email}"
             }
+        }
+
+        binding.signOutButton.setOnClickListener {
+            UserPreferences(requireContext()).getUserToken("0")
+            findNavController().navigate(R.id.action_profileFragment_to_authFragment)
         }
     }
 }
