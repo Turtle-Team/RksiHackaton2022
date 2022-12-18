@@ -1,6 +1,7 @@
 package com.turtleteam.myapp.ui.fragments.home
 
 import android.annotation.SuppressLint
+import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -37,7 +38,7 @@ class HomeFragment : Fragment() {
     var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>? = null
     private val memberAdapter = MembersAdapter()
     private val viewModel: HomeViewModel by viewModels()
-    val observer = Observer<Result<MemberModel>>{
+    val observer = Observer<Result<MemberModel>> {
         handleUsersList(it)
     }
     private val adapter = HomeAdapter(
@@ -86,19 +87,23 @@ class HomeFragment : Fragment() {
     private fun bottomSheetCallback() {
         bottomSheetBehavior?.addBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
-            @SuppressLint("SwitchIntDef")
+            @SuppressLint("SwitchIntDef", "UseCompatLoadingForDrawables")
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
-                    BottomSheetBehavior.STATE_HIDDEN -> {
-                        viewModel.usersList.removeObservers(viewLifecycleOwner)
-                    }
                     BottomSheetBehavior.STATE_EXPANDED -> {
+                        binding.bottomsht.bottomsheet.background =
+                            resources.getDrawable(R.drawable.bottomsheet_background,
+                                Resources.getSystem().newTheme())
                         viewModel.getMembers(viewModel.eventId)
                         binding.bottomsht.participateRecyclerView.adapter = memberAdapter
                         viewModel.usersList.observe(viewLifecycleOwner, observer)
                     }
                     BottomSheetBehavior.STATE_COLLAPSED -> {
-
+                        resources.getDrawable(R.drawable.bottomsheet_background,
+                            Resources.getSystem().newTheme())
+                    }
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        viewModel.usersList.removeObservers(viewLifecycleOwner)
                     }
                 }
             }
@@ -131,6 +136,7 @@ class HomeFragment : Fragment() {
                 binding.progressbar.visibility = View.VISIBLE
             }
             is Result.Success -> {
+                binding.stateView.layoutviewstate.visibility = View.GONE
                 adapter.submitList(result.value)
                 binding.progressbar.visibility = View.GONE
                 lifecycleScope.launch {
