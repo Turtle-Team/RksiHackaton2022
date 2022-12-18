@@ -13,6 +13,13 @@ interface MemberService {
         @Query("token") token: String,
     ): MemberModel
 
+    // Получить все мероприятия пользователя
+    @GET("member/event/me")
+    suspend fun getMembersMe(
+        @Header("Content-Type") type: String = "application/json",
+        @Query("token") token: String,
+    ): MemberModel
+
     // Записать пользователя на мероприятие
     @POST("member/event/{event_id}")
     suspend fun createMember(

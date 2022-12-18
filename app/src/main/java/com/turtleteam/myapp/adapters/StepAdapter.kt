@@ -16,9 +16,9 @@ import com.turtleteam.myapp.data.model.step.Step
 import com.turtleteam.myapp.databinding.StepItemBinding
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
-import java.time.ZoneOffset
+import java.time.ZoneId
+import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
-import java.time.temporal.TemporalQueries.zone
 
 
 class StepAdapter(
@@ -40,14 +40,15 @@ class StepAdapter(
         fun bind(item: Step) {
 
             val date_start = item.date_start
+            val zoneId = ZoneId.systemDefault()
             val localDate1 = LocalDateTime.parse(date_start, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            val offset1 = OffsetDateTime.of(localDate1, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss"))
+            val offset1 = ZonedDateTime.of(localDate1, zoneId).toOffsetDateTime()
 
-            Log.e("DATE START", date_start.toString())
+            Log.e("DATE START", offset1.toString())
 
 
             val date_end = item.date_end
-            Log.e("DATE END", offset1.toString())
+//            Log.e("DATE END", offset1.toString())
 //            val offset2 = OffsetDateTime.parse(date_end, DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm:ss"))
 
 
