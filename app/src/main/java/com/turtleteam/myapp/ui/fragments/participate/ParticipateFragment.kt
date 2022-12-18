@@ -5,12 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.turtleteam.myapp.adapters.MemberUserAdapter
 import com.turtleteam.myapp.databinding.FragmentParticipateBinding
 
 
 class ParticipateFragment : Fragment() {
 
+    private val viewModel by viewModels<ParticipateVIewModel>()
     private lateinit var binding: FragmentParticipateBinding
     private val adapter = MemberUserAdapter(
         notSubscribe = {},
