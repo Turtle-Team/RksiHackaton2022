@@ -14,11 +14,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.data.model.step.Step
 import com.turtleteam.myapp.databinding.StepItemBinding
-import java.time.LocalDateTime
-import java.time.OffsetDateTime
+import java.time.Instant
 import java.time.ZoneId
-import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
+import java.time.temporal.ChronoUnit
 
 
 class StepAdapter(
@@ -36,33 +34,21 @@ class StepAdapter(
     ) :
         RecyclerView.ViewHolder(binding.root) {
         @RequiresApi(Build.VERSION_CODES.O)
-        @SuppressLint("SetTextI18n")
+        @SuppressLint("SetTextI18n", "SimpleDateFormat")
         fun bind(item: Step) {
 
             val date_start = item.date_start
-            val zoneId = ZoneId.systemDefault()
-            val localDate1 = LocalDateTime.parse(date_start, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
-            val offset1 = ZonedDateTime.of(localDate1, zoneId).toOffsetDateTime()
-
-            Log.e("DATE START", offset1.toString())
-
+            val date_start_f1 = date_start.substring(11)
+            val date_start_f2 = date_start_f1.substring(0, endIndex = 5)
+            Log.e("DATE START", date_start_f2)
 
             val date_end = item.date_end
-//            Log.e("DATE END", offset1.toString())
-//            val offset2 = OffsetDateTime.parse(date_end, DateTimeFormatter.ofPattern("yyy-MM-dd'T'HH:mm:ss"))
+            val date_end_f1 = date_end.substring(11)
+            val date_end_f2 = date_end_f1.substring(0, endIndex = 5)
 
-
-
-            //            val actual1 = OffsetDateTime.parse(date_start, DateTimeFormatter.ISO_DATE_TIME)
-//            val formatter1 = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
-//            val formatDateTime1 = actual1.format(formatter1)
-
-            //            val actual2 = OffsetDateTime.parse(date_end, DateTimeFormatter.ISO_DATE_TIME)
-//            val formatter2 = DateTimeFormatter.ofPattern("dd MMMM yyyy HH:mm:ss")
-            //            val formatDateTime2 = actual2.format(formatter2)
             binding.title.text = item.header
             binding.description.text = item.text
-            binding.time.text = "$date_start : $date_end"
+            binding.time.text = "$date_start_f2 : $date_end_f2"
 
             binding.itemCard.setOnLongClickListener {
                 showPopup(binding.itemCard, item)
