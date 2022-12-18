@@ -38,5 +38,5 @@
 
     <include
         android:id="@+id/bottomsht"
-        layout="@layout/fragment_participate"/>
+        layout="@layout/bottom_sheet_users"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
