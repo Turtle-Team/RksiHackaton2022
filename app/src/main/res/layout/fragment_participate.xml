@@ -1,37 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/base_button_background"
-    app:behavior_hideable="true"
-    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+    android:layout_height="match_parent">
 
-    <View
-        android:layout_marginTop="5dp"
-        android:layout_gravity="top|center"
-        android:background="@color/white"
-        android:layout_width="35dp"
-        android:layout_height="3dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="20dp"
-        android:id="@+id/participateRecyclerView"
+        android:id="@+id/pRecycler"
         android:layout_width="match_parent"
+        tools:listitem="@layout/event_time"
         android:layout_height="match_parent"
-        tools:listitem="@layout/item_participant"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
     <ProgressBar
         android:id="@+id/progressbar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:visibility="invisible"
         android:layout_gravity="center"
-        android:visibility="invisible" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <include
         android:id="@+id/stateView"
         layout="@layout/view_request_state" />
 
-</FrameLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingButton"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/add"
+        android:src="@drawable/ic_add"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_gravity="end|bottom"
+        app:backgroundTint="@color/dark_purple" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
