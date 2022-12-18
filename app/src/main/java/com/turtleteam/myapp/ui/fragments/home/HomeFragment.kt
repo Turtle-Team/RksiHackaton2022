@@ -109,6 +109,7 @@ class HomeFragment : Fragment() {
             is Result.Success -> {
                 Log.e("userrrr", result.value.status)
                 prefs.getUserStatus(result.value.status)
+                userStatus = result.value.status
                 if (result.value.status == "Организатор") {
                     userStatus = result.value.status
                     binding.floatingButton.apply {

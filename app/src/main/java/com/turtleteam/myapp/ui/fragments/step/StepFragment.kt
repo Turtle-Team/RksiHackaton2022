@@ -62,7 +62,7 @@ class StepFragment : Fragment() {
 
         observableData()
 
-        if (userStatuse == "Организатор") {
+        if (userStatuse == "Организатор" || userStatuse == "Спикер") {
             binding.floatingButtonStep.visibility = View.VISIBLE
             binding.floatingButtonStep.setOnClickListener {
                 findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
@@ -78,7 +78,7 @@ class StepFragment : Fragment() {
     }
 
     private fun editStep(item: Step) {
-        if (userStatuse == "Организатор") {
+        if (userStatuse == "Организатор" || userStatuse == "Спикер") {
             findNavController().navigate(
                 R.id.action_stepFragment_to_editStepFragment,
                 bundleOf(
@@ -137,7 +137,7 @@ class StepFragment : Fragment() {
     }
 
     private fun deleteStep(id: Int, stepId: Int) {
-        if (userStatuse == "Организатор") {
+        if (userStatuse == "Организатор" || userStatuse == "Спикер") {
             lifecycleScope.launch {
                 viewModel.deleteStep(id, stepId, viewModel.mtoken)
                 delay(800)
