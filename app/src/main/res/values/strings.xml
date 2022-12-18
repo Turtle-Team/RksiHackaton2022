@@ -41,4 +41,5 @@
     <string name="profile">Профиль</string>
     <string name="change_theme">Смена темы</string>
     <string name="notsubscribe">Отписаться</string>
+    <string name="fio">ФИО</string>
 </resources>

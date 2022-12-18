@@ -37,8 +37,8 @@
         <item name="android:gravity">center</item>
         <item name="android:background">@color/gray</item>
         <item name="android:layout_height">60dp</item>
-        <item name="itemIconTint">@drawable/selector</item>
-        <item name="itemTextColor">@drawable/selector</item>
+        <item name="itemIconTint">@drawable/selector_nav</item>
+        <item name="itemTextColor">@drawable/selector_nav</item>
         <item name="android:layout_width">match_parent</item>
     </style>
 </resources>
