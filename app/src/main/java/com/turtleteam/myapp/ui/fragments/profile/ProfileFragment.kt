@@ -47,16 +47,17 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(R.id.action_profileFragment_to_authFragment)
         }
     }
+    @SuppressLint("SetTextI18n")
     private fun handleUserData(result: Result<AuthRequestBody>) {
         val prefs = UserPreferences(requireContext())
         when (result) {
             is Result.Success -> {
                 if (result.value.fio != null) {
                     binding.fioTextView.text = result.value.fio
-                    binding.postTextView.text = result.value.post
-                    binding.oranizationTextView.text = result.value.organization
-                    binding.statusTextView.text = result.value.status
-                    binding.emailTextView.text = result.value.email
+                    binding.postTextView.text = "Должность: ${result.value.post}"
+                    binding.oranizationTextView.text = "Организация: ${result.value.organization}"
+                    binding.statusTextView.text = "Статус: ${result.value.status}"
+                    binding.emailTextView.text = "Почта: ${result.value.email}"
                 }
             }
             is Result.NotFoundError,

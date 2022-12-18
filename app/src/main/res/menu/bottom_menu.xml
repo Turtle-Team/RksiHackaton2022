@@ -8,11 +8,11 @@
     <item
         android:id="@+id/participateFragment"
         android:icon="@drawable/ic_participate"
-        android:title="@string/participate" />
+        android:title="Участвую" />
 
     <item
         android:id="@+id/profileFragment"
         android:icon="@drawable/ic_profile"
         android:title="@string/profile"/>
-    
+
 </menu>

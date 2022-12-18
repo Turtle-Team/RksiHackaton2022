@@ -45,7 +45,7 @@
     <fragment
         android:id="@+id/participateFragment"
         android:name="com.turtleteam.myapp.ui.fragments.participate.ParticipateFragment"
-        android:label="@string/participate"
+        android:label="Участвую"
         tools:layout="@layout/fragment_participate" />
     <fragment
         android:id="@+id/createEventFragment"

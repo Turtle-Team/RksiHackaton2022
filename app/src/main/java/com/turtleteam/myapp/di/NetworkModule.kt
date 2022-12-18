@@ -1,9 +1,6 @@
 package com.turtleteam.myapp.di
 
-import com.turtleteam.myapp.data.api.ApiService
-import com.turtleteam.myapp.data.api.AuthService
-import com.turtleteam.myapp.data.api.EventService
-import com.turtleteam.myapp.data.api.StepService
+import com.turtleteam.myapp.data.api.*
 import com.turtleteam.myapp.utils.Constants
 import dagger.Module
 import dagger.Provides
@@ -11,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.lang.reflect.Member
 import javax.inject.Singleton
 
 
@@ -49,5 +47,11 @@ object NetworkModule {
     @Singleton
     fun provideStepsService(retrofit: Retrofit): StepService {
         return retrofit.create(StepService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMemberService(retrofit: Retrofit): MemberService {
+        return retrofit.create(MemberService::class.java)
     }
 }
