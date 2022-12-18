@@ -6,9 +6,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.turtleteam.myapp.data.model.event.Events
+import com.turtleteam.myapp.data.model.member.MemberModel
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.repositories.EventRepository
+import com.turtleteam.myapp.data.repositories.MemberRepository
 import com.turtleteam.myapp.data.wrapper.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -19,6 +21,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeViewModel @Inject constructor(
     private val repository: EventRepository,
+    private val membersRep: MemberRepository,
     private val userPrefs: UserPreferences,
 ) : ViewModel() {
 
@@ -28,12 +31,25 @@ class HomeViewModel @Inject constructor(
     private var _user = MutableLiveData<Result<AuthRequestBody>>(Result.Loading)
     var user: LiveData<Result<AuthRequestBody>> = _user
 
+    private var _usersList = MutableLiveData<Result<MemberModel>>(Result.Loading)
+    var usersList: LiveData<Result<MemberModel>> = _usersList
+
+    var eventId =137
+
     init {
         userPrefs.setUserToken()?.let { getUser(it) }
         getAllEvents()
     }
+    fun getMembers(eventId: Int)= viewModelScope.launch(Dispatchers.IO){
+        userPrefs.setUserToken()?.let { _usersList.postValue(membersRep.getMembers(eventId, it)) }
+    }
+
     fun getUser(token: String) = viewModelScope.launch(Dispatchers.IO) {
         _user.postValue(repository.getUser(token))
+    }
+
+    fun createMember(eventId: Int) = viewModelScope.launch(Dispatchers.IO) {
+        userPrefs.setUserToken()?.let { membersRep.createMember(eventId, it) }
     }
 
     fun getAllEvents() = viewModelScope.launch(Dispatchers.IO) {

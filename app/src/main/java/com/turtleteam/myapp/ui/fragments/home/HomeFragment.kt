@@ -1,19 +1,25 @@
 package com.turtleteam.myapp.ui.fragments.home
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.turtleteam.myapp.R
 import com.turtleteam.myapp.adapters.HomeAdapter
+import com.turtleteam.myapp.adapters.MembersAdapter
 import com.turtleteam.myapp.data.model.event.Events
+import com.turtleteam.myapp.data.model.member.MemberModel
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
 import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
@@ -28,11 +34,15 @@ class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
     private lateinit var userStatus: String
-
+    var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>? = null
+    private val memberAdapter = MembersAdapter()
     private val viewModel: HomeViewModel by viewModels()
+    val observer = Observer<Result<MemberModel>>{
+        handleUsersList(it)
+    }
     private val adapter = HomeAdapter(
-        participate = { participate() },
-        participateEvent = { participateEvent() },
+        participate = { participate(it) },
+        participateEvent = { participateEvent(it) },
         edit = { editEvent(it) },
         delete = { deleteEvent(it) },
         url = { urlEvent(it) },
@@ -44,6 +54,9 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentHomeBinding.inflate(layoutInflater, container, false)
+
+        bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomsht.bottomsheet)
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_HIDDEN
         UserPreferences(requireContext()).setUserStatus().apply {
             if (this != null) {
                 userStatus = this
@@ -66,7 +79,33 @@ class HomeFragment : Fragment() {
         }
 
         binding.homeRecyclerView.adapter = adapter
+        bottomSheetCallback()
         observableData()
+    }
+
+    private fun bottomSheetCallback() {
+        bottomSheetBehavior?.addBottomSheetCallback(object :
+            BottomSheetBehavior.BottomSheetCallback() {
+            @SuppressLint("SwitchIntDef")
+            override fun onStateChanged(bottomSheet: View, newState: Int) {
+                when (newState) {
+                    BottomSheetBehavior.STATE_HIDDEN -> {
+                        viewModel.usersList.removeObservers(viewLifecycleOwner)
+                    }
+                    BottomSheetBehavior.STATE_EXPANDED -> {
+                        viewModel.getMembers(viewModel.eventId)
+                        binding.bottomsht.participateRecyclerView.adapter = memberAdapter
+                        viewModel.usersList.observe(viewLifecycleOwner, observer)
+                    }
+                    BottomSheetBehavior.STATE_COLLAPSED -> {
+
+                    }
+                }
+            }
+
+            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+            }
+        })
     }
 
     private fun handleViewStates(result: Result<List<Events>>) {
@@ -129,6 +168,21 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun handleUsersList(result: Result<MemberModel>) {
+        when (result) {
+            is Result.Success -> {
+                Log.e("gggg", result.value.toString())
+                memberAdapter.setData(result.value)
+            }
+            is Result.NotFoundError,
+            is Result.ConnectionError,
+            is Result.Error,
+            is Result.Loading,
+            -> {
+            }
+        }
+    }
+
     private fun observableData() {
         viewModel.events.observe(viewLifecycleOwner) { list ->
             handleViewStates(list)
@@ -144,12 +198,17 @@ class HomeFragment : Fragment() {
         EventDialog().show(parentFragmentManager, "Ссылки")
     }
 
-    private fun participate() {
-
+    private fun participate(events: Events) {
+        lifecycleScope.launch {
+            viewModel.createMember(events.id)
+            delay(800)
+            viewModel.getAllEvents()
+        }
     }
 
-    private fun participateEvent() {
-
+    private fun participateEvent(events: Events) {
+        viewModel.eventId = events.id
+        bottomSheetBehavior!!.state = BottomSheetBehavior.STATE_EXPANDED
     }
 
     private fun editEvent(item: Events) {

@@ -19,8 +19,8 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class HomeAdapter(
-    private val participate: (item: Int) -> Unit,
-    private val participateEvent: (item: Int) -> Unit,
+    private val participate: (item: Events) -> Unit,
+    private val participateEvent: (item: Events) -> Unit,
     private val edit: (item: Events) -> Unit,
     private val delete: (item: Int) -> Unit,
     private val url: (item: String) -> Unit,
@@ -29,8 +29,8 @@ class HomeAdapter(
 
     class HomeHolder(
         private val binding: EventTimeBinding,
-        private val participate: (item: Int) -> Unit,
-        private val participateEvent: (item: Int) -> Unit,
+        private val participate: (item: Events) -> Unit,
+        private val participateEvent: (item: Events) -> Unit,
         private val edit: (item: Events) -> Unit,
         private val delete: (item: Int) -> Unit,
         private val url: (item: String) -> Unit,
@@ -71,9 +71,11 @@ class HomeAdapter(
                         url(item1.url)
                     }
                     R.id.participate -> {
+                        participate(item1)
                         Log.e("menu", "PARTICIPATE id: ${item1.id}")
                     }
                     R.id.participateEvent -> {
+                        participateEvent(item1)
                         Log.e("menu", "PARTICIPATE EVENT")
                     }
                     R.id.editEvent -> {

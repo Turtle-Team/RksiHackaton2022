@@ -7,11 +7,11 @@ interface MemberService {
 
     // Получить список участников мероприятия
     @GET("member/event/{event_id}")
-    suspend fun getMember(
+    suspend fun getMembers(
         @Header("Content-Type") type: String = "application/json",
         @Path("event_id") event_id: Int,
         @Query("token") token: String,
-    ): List<MemberModel>
+    ): MemberModel
 
     // Записать пользователя на мероприятие
     @POST("member/event/{event_id}")
