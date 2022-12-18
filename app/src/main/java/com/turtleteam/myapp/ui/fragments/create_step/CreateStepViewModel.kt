@@ -23,4 +23,12 @@ class CreateStepViewModel @Inject constructor(private val repository: StepReposi
         viewModelScope.launch(Dispatchers.IO) {
             _result.postValue(repository.createStep(id = id, stepModel = stepModel, token = token))
         }
+
+    fun editStep(id: Int, stepModel: StepRequestBody, token: String, stepId: Int) =
+        viewModelScope.launch(Dispatchers.IO) {
+            _result.postValue(repository.editStep(id = id,
+                stepId = stepId,
+                stepModel = stepModel,
+                token = token))
+        }
 }

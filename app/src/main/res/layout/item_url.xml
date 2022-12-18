@@ -6,6 +6,6 @@
     android:id="@+id/urltext"
     android:textColor="@color/white"
     xmlns:tools="http://schemas.android.com/tools"
-    android:textSize="22sp"
+    android:textSize="18sp"
     tools:text="Ссылка"
     android:fontFamily="@font/qanelas" />

@@ -9,7 +9,7 @@ class UserPreferences(context: Context) {
         private const val PREFS_NAME = "PREFERENCE"
         private const val USER_ID = "savedusertoken"
         private const val EVENT_ID = "eventid"
-
+        private const val USER_STATUS = "userstatus"
     }
 
     private var preferences: SharedPreferences =
@@ -22,4 +22,9 @@ class UserPreferences(context: Context) {
     fun getEventId(id: Int) = preferences.edit().putInt(EVENT_ID, id).apply()
 
     fun setEventId(): Int = preferences.getInt(EVENT_ID, 0)
+
+    fun getUserStatus(status: String) = preferences.edit().putString(USER_STATUS, status).apply()
+
+    fun setUserStatus(): String? = preferences.getString(USER_STATUS, "0")
+
 }

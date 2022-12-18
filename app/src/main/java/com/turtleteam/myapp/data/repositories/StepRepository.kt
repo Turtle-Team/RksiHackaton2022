@@ -21,6 +21,15 @@ class StepRepository @Inject constructor(private val apiService: StepService) {
                 token = token)
         }
 
+    suspend fun editStep(id: Int, stepId: Int,stepModel: StepRequestBody, token: String): Result<Throwable> =
+        NetworkResultWrapper.wrapWithResult {
+            apiService.editStep(id = id,
+                stepId = stepId,
+                stepModel = stepModel,
+                token = token)
+        }
+
+
     suspend fun deleteStep(id: Int, stepId: Int, token: String) =
         apiService.deleteStep(id = id, stepId = stepId, token = token)
 }

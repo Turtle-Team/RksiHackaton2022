@@ -41,7 +41,12 @@ class CreateStepFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val id = arguments?.getInt("key")
+        var eId = 0
+        var mToken = ""
+        UserPreferences(requireContext()).apply {
+            eId = setEventId()
+            mToken = setUserToken().toString()
+        }
 
         binding.timestartpicker.setIs24HourView(true)
         binding.timestartpicker.hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -66,27 +71,26 @@ class CreateStepFragment : Fragment() {
         }
 
         binding.createStepButton.setOnClickListener {
-            UserPreferences(requireContext()).setUserToken()?.let { savedToken ->
-                if (id!=null) {
-                    viewModel.createStep(
-                        id, StepRequestBody(
-                            id,
-                            binding.dateStartEditText.text.toString(),
-                            binding.dateEndEditText.text.toString(),
-                            binding.titleEditText.text.toString(),
-                            binding.descriptionEditText.text.toString(),
-                            binding.stepurl.text.toString()
-                        ),
-                        savedToken
-                    )
-                    it.isClickable = false
-                }else{
-                    Toast.makeText(requireContext(), "Отсутствует id мероприятия", Toast.LENGTH_SHORT).show()
-                }
+            if (eId != null) {
+                viewModel.createStep(
+                    eId, StepRequestBody(
+                        eId,
+                        getFormattedStartTime(),
+                        getFormattedEndTime(),
+                        binding.titleEditText.text.toString(),
+                        binding.descriptionEditText.text.toString(),
+                        binding.stepurl.text.toString()
+                    ),
+                    mToken
+                )
+                it.isClickable = false
+            } else {
+                Toast.makeText(requireContext(), "Отсутствует id мероприятия", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
 
-        viewModel.result.observe(viewLifecycleOwner){
+        viewModel.result.observe(viewLifecycleOwner) {
             handleResult(it)
             binding.createStepButton.isClickable = true
         }

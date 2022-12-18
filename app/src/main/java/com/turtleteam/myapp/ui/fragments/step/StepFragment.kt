@@ -27,6 +27,7 @@ class StepFragment : Fragment() {
 
     private lateinit var binding: FragmentStepBinding
     private val viewModel: StepViewModel by viewModels()
+    private lateinit var userStatuse: String
     private val adapter = StepAdapter(
         edit = { editStep(it) },
         delete = { deleteStep(id = it.event_id, stepId = it.id) },
@@ -39,13 +40,10 @@ class StepFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         binding = FragmentStepBinding.inflate(layoutInflater, container, false)
-        arguments?.getInt("id").let {
-            if (it != null) {
-                viewModel.eventId = it
-            }
-        }
         UserPreferences(requireContext()).apply {
+            userStatuse = setUserStatus().toString()
             viewModel.mtoken = setUserToken().toString()
+            viewModel.eventId = setEventId()
         }
         return binding.root
     }
@@ -59,16 +57,17 @@ class StepFragment : Fragment() {
             }
         }
 
-        Log.e("STEP", viewModel.steps.value.toString())
 
         binding.stepRecyclerView.adapter = adapter
 
         observableData()
 
-        binding.floatingButtonStep.setOnClickListener {
-            findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
-                bundleOf("key" to id))
-            Toast.makeText(requireContext(), id.toString(), Toast.LENGTH_SHORT).show()
+        if (userStatuse == "Организатор") {
+            binding.floatingButtonStep.visibility = View.VISIBLE
+            binding.floatingButtonStep.setOnClickListener {
+                findNavController().navigate(R.id.action_stepFragment_to_createStepFragment,
+                    bundleOf("key" to id))
+            }
         }
     }
 
@@ -79,16 +78,22 @@ class StepFragment : Fragment() {
     }
 
     private fun editStep(item: Step) {
-        findNavController().navigate(
-            R.id.action_stepFragment_to_editStepFragment,
-//            bundleOf(
-//                "key" to item.id,
-//                "header" to item.header,
-//                "text" to item.text,
-//                "url" to item.url,
-//                "date_start" to item.date_start
-//            )
-        )
+        if (userStatuse == "Организатор") {
+            findNavController().navigate(
+                R.id.action_stepFragment_to_editStepFragment,
+                bundleOf(
+                    "event_id" to viewModel.eventId,
+                    "key" to item.id,
+                    "header" to item.header,
+                    "text" to item.text,
+                    "url" to item.url,
+                    "date_start" to item.date_start,
+                    "date_end" to item.date_end
+                )
+            )
+        } else {
+            Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun handleViewStates(result: Result<List<Step>>) {
@@ -132,11 +137,15 @@ class StepFragment : Fragment() {
     }
 
     private fun deleteStep(id: Int, stepId: Int) {
-        lifecycleScope.launch {
-            viewModel.deleteStep(id, stepId, viewModel.mtoken)
-            delay(800)
-            viewModel.getStepsByEvent(id, viewModel.mtoken)
-            Log.e("DELETE", "OKEY")
+        if (userStatuse == "Организатор") {
+            lifecycleScope.launch {
+                viewModel.deleteStep(id, stepId, viewModel.mtoken)
+                delay(800)
+                viewModel.getStepsByEvent(id, viewModel.mtoken)
+                Log.e("DELETE", "OKEY")
+            }
+        }else{
+            Toast.makeText(requireContext(), "Недостаточно прав", Toast.LENGTH_SHORT).show()
         }
     }
 }

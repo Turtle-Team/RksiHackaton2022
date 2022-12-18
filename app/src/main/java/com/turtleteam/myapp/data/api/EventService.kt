@@ -3,7 +3,7 @@ package com.turtleteam.myapp.data.api
 import com.turtleteam.myapp.data.model.event.EventRequestBody
 import com.turtleteam.myapp.data.model.event.Events
 import com.turtleteam.myapp.data.model.users.AuthRequestBody
-import retrofit2.Response
+import com.turtleteam.myapp.data.wrapper.Result
 import retrofit2.http.*
 
 interface EventService {
@@ -11,7 +11,7 @@ interface EventService {
     @GET("auth/{token}")
     suspend fun getUserInfo(
         @Path("token") token: String
-    ): Response<AuthRequestBody>
+    ): AuthRequestBody
 
     @GET("event/")
     suspend fun getAllEvents(

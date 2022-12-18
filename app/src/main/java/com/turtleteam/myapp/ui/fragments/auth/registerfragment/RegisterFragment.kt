@@ -16,6 +16,7 @@ import com.turtleteam.myapp.data.preferences.UserPreferences
 import com.turtleteam.myapp.data.wrapper.Result
 import com.turtleteam.myapp.databinding.FragmentRegisterBinding
 import com.turtleteam.myapp.ui.fragments.auth.base.BaseAuthFragment
+import com.turtleteam.myapp.utils.ViewAnimations
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +27,7 @@ class RegisterFragment : BaseAuthFragment<FragmentRegisterBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.registerButton.setOnClickListener {
-//            ViewAnimations.blackout(false, binding.cardAuth)
+            ViewAnimations.blackout(false, binding.registercardview)
             binding.apply {
                 fioEditText.isFocusable = false
                 postEditText.isFocusable = false
@@ -37,7 +38,6 @@ class RegisterFragment : BaseAuthFragment<FragmentRegisterBinding>() {
                 registerButton.isFocusable = false
                 loadingview.visibility = View.VISIBLE
             }
-            Log.e("REGISTER", binding.organizationEditText.toString(),)
             viewModel.register(AuthRequestBody(
                 binding.fioEditText.text.toString(),
                 binding.postEditText.text.toString(),
@@ -71,7 +71,7 @@ class RegisterFragment : BaseAuthFragment<FragmentRegisterBinding>() {
         when (result) {
             is Result.Success -> {
                 if (result.value.token!=null) {
-                    context?.let { UserPreferences(it).getUserToken(result.value.token) }
+                    UserPreferences(requireContext()).getUserToken(result.value.token)
                     Toast.makeText(context, result.value.token, Toast.LENGTH_LONG).show()
                     findNavController().navigate(R.id.action_registerFragment_to_homeFragment)
                 }else{

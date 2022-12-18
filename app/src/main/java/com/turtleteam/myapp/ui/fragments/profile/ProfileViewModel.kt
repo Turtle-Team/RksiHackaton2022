@@ -18,18 +18,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ProfileViewModel @Inject constructor(private val repository: EventRepository) : ViewModel() {
-    private val _user = MutableLiveData<Response<AuthRequestBody>?>()
-    var user: LiveData<Response<AuthRequestBody>?> = _user
 
-//    fun getUser(token: String) = viewModelScope.launch(Dispatchers.IO) {
-//        _user.postValue(repository.getUser(token))
-//    }
+    private val _user = MutableLiveData<Result<AuthRequestBody>>()
+    var user: LiveData<Result<AuthRequestBody>> = _user
 
     fun getUser(token: String) = viewModelScope.launch(Dispatchers.IO) {
-        try {
-            _user.postValue(repository.getUser(token))
-        } catch (e: Throwable) {
-            _user.postValue(null)
-        }
+        _user.postValue(repository.getUser(token))
     }
 }

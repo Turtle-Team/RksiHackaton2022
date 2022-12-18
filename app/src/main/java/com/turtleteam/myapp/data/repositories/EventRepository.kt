@@ -16,7 +16,7 @@ class EventRepository @Inject constructor(private val apiService: EventService) 
 
     suspend fun getEvent(id: Int) = println()
 
-    suspend fun getUser(token: String): Response<AuthRequestBody> = apiService.getUserInfo(token)
+    suspend fun getUser(token: String): Result<AuthRequestBody> = NetworkResultWrapper.wrapWithResult { apiService.getUserInfo(token) }
 
     suspend fun createEvent(eventModel: EventRequestBody, token: String): Result<Throwable> =
         NetworkResultWrapper.wrapWithResult {

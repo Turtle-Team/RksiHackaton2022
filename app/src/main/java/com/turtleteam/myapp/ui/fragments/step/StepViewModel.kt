@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class StepViewModel @Inject constructor(private val repository: StepRepository) : ViewModel() {
 
-    private val _steps = MutableLiveData<Result<List<Step>>>()
+    private val _steps = MutableLiveData<Result<List<Step>>>(Result.Loading)
     var steps: LiveData<Result<List<Step>>> = _steps
 
     var eventId = 0
