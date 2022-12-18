@@ -76,6 +76,9 @@
         <action
             android:id="@+id/action_stepFragment_to_editStepFragment"
             app:destination="@id/editStepFragment" />
+        <action
+            android:id="@+id/action_stepFragment_to_editStepFragment2"
+            app:destination="@id/editStepFragment" />
     </fragment>
     <fragment
         android:id="@+id/createStepFragment"
@@ -92,7 +95,13 @@
         android:id="@+id/editStepFragment"
         android:name="com.turtleteam.myapp.ui.fragments.edit_step.EditStepFragment"
         android:label="Редактирование этапа"
-        tools:layout="@layout/fragment_edit_step" />
+        tools:layout="@layout/fragment_edit_step" >
+        <action
+            android:id="@+id/action_editStepFragment_to_stepFragment"
+            app:destination="@id/stepFragment"
+            app:popUpToInclusive="true"
+            app:popUpTo="@id/stepFragment"/>
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.turtleteam.myapp.ui.fragments.profile.ProfileFragment"
