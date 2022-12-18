@@ -24,7 +24,7 @@ class ProfileFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         UserPreferences(requireContext()).setUserToken()?.let {
@@ -42,11 +42,11 @@ class ProfileFragment : Fragment() {
         }
 
         binding.signOutButton.setOnClickListener {
-            UserPreferences(requireContext()).getUserToken("0")
-            UserPreferences(requireContext()).getUserStatus("0")
+            UserPreferences(requireContext()).deleteUser()
             findNavController().navigate(R.id.action_profileFragment_to_authFragment)
         }
     }
+
     @SuppressLint("SetTextI18n")
     private fun handleUserData(result: Result<AuthRequestBody>) {
         val prefs = UserPreferences(requireContext())
@@ -65,7 +65,8 @@ class ProfileFragment : Fragment() {
             is Result.Error,
             is Result.Loading,
             -> {
-                Toast.makeText(requireContext(), "Не удалось загрузить данные", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Не удалось загрузить данные", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }

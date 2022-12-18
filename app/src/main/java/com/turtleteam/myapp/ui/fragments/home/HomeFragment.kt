@@ -152,7 +152,7 @@ class HomeFragment : Fragment() {
         val prefs = UserPreferences(requireContext())
         when (result) {
             is Result.Success -> {
-                Log.e("userrrr", result.value.status)
+                Log.e("userrrr", result.value.toString())
                 prefs.getUserStatus(result.value.status)
                 userStatus = result.value.status
                 if (result.value.status == "Организатор") {
