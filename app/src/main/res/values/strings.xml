@@ -40,4 +40,5 @@
     <string name="edit_step">Редактировать этап</string>
     <string name="profile">Профиль</string>
     <string name="change_theme">Смена темы</string>
+    <string name="notsubscribe">Отписаться</string>
 </resources>
