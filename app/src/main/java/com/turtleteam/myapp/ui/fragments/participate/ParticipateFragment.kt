@@ -20,7 +20,7 @@ class ParticipateFragment : Fragment() {
     private val viewModel by viewModels<ParticipateVIewModel>()
     private lateinit var binding: FragmentParticipateBinding
     private val adapter = MemberUserAdapter(
-        notSubscribe = {},
+        notSubscribe = {it},
         delete = {}
     )
 
@@ -51,6 +51,10 @@ class ParticipateFragment : Fragment() {
             -> {
             }
         }
+    }
+
+    fun unSub(item: Events){
+
     }
 
     private fun handleViewStates(result: Result<List<Events>>) {

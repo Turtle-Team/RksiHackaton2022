@@ -15,6 +15,8 @@ class UserPreferences(context: Context) {
     private var preferences: SharedPreferences =
         context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
 
+    fun deleteUser() = preferences.edit().clear().commit()
+
     fun getUserToken(token: String) = preferences.edit().putString(USER_ID, token).apply()
 
     fun setUserToken(): String? = preferences.getString(USER_ID, "0")
